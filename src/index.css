@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+:root {
+  /* Core Typography */
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* HuntBasket Color System */
+  --hunt-bg: #fafafa;
+  --hunt-surface: #ffffff;
+  --hunt-text: #1a1a1a;
+  --hunt-primary: #ff6b35;
+  --hunt-success: #a3b18a;
+  --hunt-error: #d62828;
+  --hunt-premium: #e9c46a;
+  --hunt-link: #ff6b35;
+  --hunt-link-hover: #e55a2b;
+
+  /* Layout & Defaults */
+  color: var(--hunt-text);
+  background-color: var(--hunt-bg);
+  color-scheme: light dark;
+}
+
+.dark {
+  --hunt-bg: #0f0f0f;
+  --hunt-surface: #1e1e1e;
+  --hunt-text: #e0e0e0;
+  --hunt-primary: #ff6b35;
+  --hunt-success: #6b8e6b;
+  --hunt-error: #c21807;
+  --hunt-premium: #d4a017;
+  --hunt-link: #ff8b5f;
+  --hunt-link-hover: #ff6b35;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: var(--hunt-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--hunt-text);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 700;
+}
+
+a {
+  color: var(--hunt-link);
+  text-decoration: none;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--hunt-link-hover);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  outline: 0;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: "Open Sans", sans-serif;
+  background-color: var(--hunt-surface);
+  color: var(--hunt-text);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  border-color: var(--hunt-primary);
+  background-color: var(--hunt-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto var(--hunt-primary);
+  outline-offset: 2px;
+}
+
+/* === PRIMARY ACTION BUTTON (Hunt Style) === */
+button.hunt-primary {
+  background-color: var(--hunt-primary);
+  color: white;
+  border-color: transparent;
+}
+button.hunt-primary:hover {
+  background-color: #e55a2b;
+  border-color: transparent;
+}
