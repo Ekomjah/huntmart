@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect } from "react";
 import CarouselApp from "./components/carousel/carousel";
 import PrimaryAppBar from "./components/AppBar/appBar";
+import ProductList from "./components/firebase-fetch/fetched";
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
         <h1>Hello Theme!</h1>
         <p>The theme is now applied to your document.</p>
       </div>
+    <ProductList/>
     </>
   );
 }

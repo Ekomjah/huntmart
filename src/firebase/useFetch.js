@@ -1,0 +1,16 @@
+import { ref, get } from "firebase/database";
+import { db } from "./firebase";
+import { useQuery } from "@tanstack/react-query";
+
+async function fetchProducts() {
+  const snapshot = await get(ref(db, "products"));
+  return snapshot.val(); // returns the whole products object
+}
+
+export function useFetch() {
+  const { data, isLoading, isError, refetch } = useQuery(
+    ["huntbasket"],
+    fetchProducts
+  );
+  return { data, isLoading, isError, refetch };
+}
