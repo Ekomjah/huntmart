@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFetch } from "../../firebase/useFetch";
 
 export default function ProductList() {
-  const [products, setProducts] = useState(null);
-
-  const { data, isLoading, isError, refetch } = useFetch();
-  setProducts(data);
+  const { data: products, isLoading, isError } = useFetch();
 
   if (isLoading) return <p>Loading...</p>;
   if (isError)
     return (
       <>
         <p>Error fetching data</p>
-        <button onClick={() => refetch()}>Retry</button>
+        <button>Retry</button>
       </>
     );
 
