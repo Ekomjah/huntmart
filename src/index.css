@@ -21,6 +21,7 @@
   --hunt-premium: #e9c46a;
   --hunt-link: #ff6b35;
   --hunt-link-hover: #e55a2b;
+  --hunt-carousel: #e6f0f2;
 
   /* Layout & Defaults */
   color: var(--hunt-text);
@@ -38,6 +39,7 @@
   --hunt-premium: #d4a017;
   --hunt-link: #ff8b5f;
   --hunt-link-hover: #ff6b35;
+  --hunt-carousel: #1e3d59;
 }
 
 body {
