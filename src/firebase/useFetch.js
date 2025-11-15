@@ -8,9 +8,9 @@ async function fetchProducts() {
 }
 
 export function useFetch() {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["huntbasket"],
     queryFn: fetchProducts,
   });
-  return { data, isLoading, isError };
+  return { data, isLoading, isError, refetch };
 }
