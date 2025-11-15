@@ -18,7 +18,7 @@ export default function ProductList() {
         <div key={id}>
           <h2>{product.title}</h2>
           <img
-            src={`https://res.cloudinary.com/dstspza38/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
+            src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
           />
           <p>{product.price}</p>
         </div>
