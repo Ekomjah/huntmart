@@ -1,4 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Momo+Trust+Display&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @theme {
+  --font-pop: "Open Sans", monospace;
   --font-mono: "Roboto Mono", sans-serif;
+}
+
+.broken {
+  background-image:
+    linear-gradient(rgba(200, 25, 25, 0.8), rgba(180, 30, 30, 0.8)),
+    url("/cracks.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 80vw;
+  max-width: 600px;
+  height: 50vh;
+
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+
+  backdrop-filter: blur(3px);
 }

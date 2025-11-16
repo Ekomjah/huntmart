@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { useRouteError } from "react-router";
 import { House } from "lucide-react";
+import "./error.css";
 export default function ErrorPage() {
   const error = useRouteError();
   console.log("errorElement: ", error);
@@ -12,9 +13,11 @@ export default function ErrorPage() {
           alt="error img"
           className="h-screen w-full object-cover object-center"
         />
-        <div className="absolute top-1/2 right-2 bottom-2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-red-600/80 p-4 font-mono text-white shadow-lg backdrop-blur-md">
-          <h1 className="text-8xl!">{error.status}!</h1>
-          <p className="text-xl font-semibold">You hit the wrong webpage.</p>
+        <div className="broken absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg p-6">
+          <h1 className="font-mono text-8xl!">{error.status}!</h1>
+          <h1 className="font-pop text-xl font-semibold">
+            You hit the wrong webpage.
+          </h1>
           <Link
             to="/"
             className="mt-4 flex justify-center gap-4 rounded bg-(--hunt-primary) p-4 text-white! hover:opacity-90"
