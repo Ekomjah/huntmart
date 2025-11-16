@@ -19,13 +19,15 @@ function App() {
   }, []);
   return (
     <>
-      <PrimaryAppBar />{" "}
-      <div style={{ padding: "2rem" }}>
+      <PrimaryAppBar />
+      <div className="mt-[75px]">
         <CarouselApp />
+      </div>
+      <div style={{ padding: "2rem" }}>
         <h1>Hello Theme!</h1>
         <p>The theme is now applied to your document.</p>
       </div>
-    <ProductList/>
+      <ProductList />
     </>
   );
 }

@@ -2,6 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { CirclePlay, CirclePause } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
+import img1 from "../../assets/pictures/charlesdeluvio-FK81rxilUXg-unsplash.jpg";
+import img2 from "../../assets/pictures/freestocks-_3Q3tsJ01nc-unsplash.jpg";
+import img3 from "../../assets/pictures/freestocks-VFrcRtEQKL8-unsplash.jpg";
+import img4 from "../../assets/pictures/img.avif";
 
 // Import Swiper styles
 import "swiper/css";
@@ -14,7 +18,7 @@ import "./styles.css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function CarouselApp() {
-  const [img, setImg] = useState([]);
+  const [img, setImg] = useState([img1, img2, img3, img4]);
   useEffect(() => {
     const urls = [
       "https://fakestoreapi.com/products",
@@ -41,8 +45,8 @@ export default function CarouselApp() {
         const setterArr = index.map((el) => arr[el]);
         console.log(setterArr);
         console.log(index);
-        setImg(setterArr);
-      }
+        setImg((prev) => [...prev, setterArr]);
+      },
     );
   }, []);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -79,15 +83,14 @@ export default function CarouselApp() {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper relative"
       >
         {img.map((image) => (
           <SwiperSlide>
-            <div className="h-full">
-              <img src={image} className="object-cover" />
+            <div className="h-full w-[90vw]">
+              <img src={image} className="w-full object-contain" />
             </div>
           </SwiperSlide>
         ))}
