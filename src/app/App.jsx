@@ -27,7 +27,10 @@ function App() {
             A Shopping and Department Store
           </h2>
           <p className="font-sans text-base font-semibold lg:text-lg">
-            Every shopper is a hunter. Every basket is a trophy.
+            Every shopper is a hunter. 
+          </p>
+          <p className="font-sans text-base font-semibold lg:text-lg">
+            Every basket is a trophy. 
           </p>
         </div>
       </div>
