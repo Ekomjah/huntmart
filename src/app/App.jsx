@@ -34,7 +34,7 @@ function App() {
 
       <div>
         <h2>Shop by a various categories</h2>
-        <div className="flex items-center justify-center gap-5">
+        <div className="flex flex-wrap items-center justify-center gap-5">
           <HuntCategories
             text="books"
             img="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e460afc22b7ea53520_books-min.png"
