@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --font-pop: "Poppins", monospace;
+  --font-sans: "Open Sans", sans-serif;
+  --font-mono: "Roboto Mono", sans-serif;
+}
+
 :root {
   /* Core Typography */
   font-family:
@@ -29,6 +35,7 @@
   --hunt-link: #ff6b35;
   --hunt-link-hover: #e55a2b;
   --hunt-carousel: #e6f0f2;
+  --hunt-accent: #2f4550;
 
   /* Layout & Defaults */
   color: var(--hunt-text);
@@ -47,6 +54,7 @@
   --hunt-link: #ff8b5f;
   --hunt-link-hover: #ff6b35;
   --hunt-carousel: #1e3d59;
+  --hunt-accent: #d1e1e8;
 }
 
 body {

@@ -1,8 +1,3 @@
-@theme {
-  --font-pop: "Open Sans", monospace;
-  --font-mono: "Roboto Mono", sans-serif;
-}
-
 .broken {
   background-image:
     linear-gradient(rgba(200, 25, 25, 0.8), rgba(180, 30, 30, 0.8)),

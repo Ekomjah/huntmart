@@ -1,10 +1,10 @@
-.swiper {
+:global(.swiper) {
   width: 100%;
   height: 85vh;
   max-height: 500px;
 }
 
-.swiper-slide {
+:global(.swiper-slide) {
   text-align: center;
   font-size: 18px;
   background: var(--hunt-carousel);
@@ -14,13 +14,12 @@
   align-items: center;
 }
 
-.swiper-slide img {
+:global(.swiper-slide img) {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   background-color: transparent;
-  border-radius: 10px;
 }
 
 .autoplay-progress {
@@ -34,18 +33,18 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: var(--swiper-theme-color);
 }
 
 .control:hover {
   cursor: pointer;
 }
+
 .autoplay-progress svg {
   --progress: 0;
   position: absolute;
   left: 0;
   top: 0px;
-  z-index: 1; /* Changed from 10 to 1 */
+  z-index: 1;
   width: 100%;
   height: 100%;
   stroke-width: 4px;
@@ -71,8 +70,8 @@
 
 .control {
   margin: auto;
-  z-index: 3; /* Increased to ensure visibility */
-  display: flex; /* Added to properly center the icon */
+  z-index: 3;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
