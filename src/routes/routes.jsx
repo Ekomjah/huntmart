@@ -1,6 +1,6 @@
-import App from "../App.jsx";
+import App from "../app/App.jsx";
 import ErrorPage from "../components/error/error.jsx";
-import Item from "../components/firebase-fetch/item.jsx";
+import Item from "../features/firebase-fetch/item.jsx";
 
 const routes = [
   {

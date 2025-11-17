@@ -1,5 +1,5 @@
 import { ref, get } from "firebase/database";
-import { db } from "./firebase";
+import { db } from "../services/firebase/firebase";
 import { useQuery } from "@tanstack/react-query";
 
 async function fetchProducts() {

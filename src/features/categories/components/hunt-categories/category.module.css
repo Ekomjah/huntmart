@@ -1,0 +1,30 @@
+.item {
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  transition: transform 0.35s ease;
+  will-change: transform;
+  position: relative;
+  cursor: pointer;
+}
+
+.item:hover {
+  transform: translate3d(0, 0, 0) scale3d(1.05, 1.05, 1);
+}
+
+/* Image itself just stays flat */
+.img {
+  width: 100%;
+  object-fit: contain;
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  border-radius: 10px;
+  will-change: transform;
+}
+
+.text {
+  position: absolute;
+  top: 10%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}

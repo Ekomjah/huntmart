@@ -1,4 +1,4 @@
-import { useFetch } from "../../firebase/useFetch";
+import { useFetch } from "../../hooks/useFetch";
 import { Link } from "react-router";
 export default function ProductList() {
   const { data: products, isLoading, isError, refetch } = useFetch();

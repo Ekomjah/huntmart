@@ -6,7 +6,7 @@
   import img3 from "../../assets/pictures/freestocks-VFrcRtEQKL8-unsplash.jpg";
   import img4 from "../../assets/pictures/maria-lin-kim-8RaUEd8zD-U-unsplash.jpg";
   import img5 from "../../assets/pictures/nathan-waters-ykH4Wtocefc-unsplash.jpg";
-  import { cn } from "../../lib/utils";
+  import { cn } from "../../utils/utils";
   // Import Swiper styles
   import "swiper/css";
   import "swiper/css/pagination";

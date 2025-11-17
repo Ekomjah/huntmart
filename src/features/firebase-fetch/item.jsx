@@ -1,12 +1,13 @@
 import { useParams } from "react-router";
-import { useItem } from "../../firebase/useItem";
+import { useItem } from "../../hooks/useItem";
+import { Navigate } from "react-router";
 export default function Item() {
   const { id } = useParams();
   const { data: item, isLoading, isError } = useItem(id);
   if (isLoading) return <p>Loading...</p>;
   if (isError) {
     console.log("some error, ", isError);
-    return <p>Error fetching data</p>;
+    return <Navigate to={`/errorPage`} replace />;
   }
   if (item) {
     return (
