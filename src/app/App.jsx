@@ -89,12 +89,14 @@ export default function App() {
           </p>
         </div>
       </div>
-      <h2>Hunt Without Limits!</h2>
+      <div style={{ padding: "1rem" }}>
+        <h1 className="font-pop">Hunt Without Limits!</h1>
+      </div>
       <div>
         <h2 className="mt-10 mb-5 text-center text-4xl font-semibold text-(--hunt-text)">
           Shop by a various categories
         </h2>
-        <div className="flex flex-wrap items-start justify-center gap-5">
+        <div className="m-3 grid grid-cols-2 items-start justify-center gap-5 md:grid-cols-3 lg:grid-cols-4">
           {/* <HuntCategories
             text="books"
             img="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e460afc22b7ea53520_books-min.png"
@@ -116,10 +118,6 @@ export default function App() {
             <HuntCategories text={text} img={img} />
           ))}
         </div>
-      </div>
-      <div style={{ padding: "1rem" }}>
-        <h1>Hello Theme!</h1>
-        <p>The theme is now applied to your document.</p>
       </div>
       <ProductList />
     </>

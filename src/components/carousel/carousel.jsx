@@ -24,7 +24,6 @@ export default function CarouselApp() {
     img3,
     img4,
     img5,
-    "https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e4f3f2f57f1b1e5f4c_homepage-min.jpg",
     "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fHww",
   ];
   const [isPlaying, setIsPlaying] = useState(true);

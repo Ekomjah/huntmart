@@ -1,9 +1,12 @@
 .item {
   /* layout */
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   /* Flexible but bounded width so grid wraps nicely */
-  flex: 0 1 300px; /* allow to shrink a little, grow if space allows */
+  flex: 0 1 20vw; /* allow to shrink a little, grow if space allows */
   min-width: 140px; /* prevents being too small on narrow screens */
   max-width: 800px; /* prevents growing too large on wide screens */
 
