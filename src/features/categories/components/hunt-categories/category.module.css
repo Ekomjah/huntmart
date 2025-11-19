@@ -1,31 +1,84 @@
 .item {
-  transform-style: preserve-3d;
-  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-  transition: transform 0.35s ease;
+  /* layout */
+  box-sizing: border-box;
+
+  /* Flexible but bounded width so grid wraps nicely */
+  flex: 0 1 300px; /* allow to shrink a little, grow if space allows */
+  min-width: 140px; /* prevents being too small on narrow screens */
+  max-width: 800px; /* prevents growing too large on wide screens */
+
+  /* keep a fixed shape so images have a height to fill */
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+
+  /* visuals & animation */
+  transform: translateZ(0);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.25s;
   will-change: transform;
-  position: relative;
   cursor: pointer;
+  position: relative;
 }
 
 .item:hover {
-  transform: translate3d(0, 0, 0) scale3d(1.05, 1.05, 1);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* Image itself just stays flat */
+/* image fills the square and won't distort */
 .img {
-  width: 20vw;
+  display: block;
+  width: 100%;
   height: 100%;
-  object-fit: contain;
-  transform: translate3d(0, 0, 0);
-  transform-style: preserve-3d;
-  border-radius: 10px;
-  will-change: transform;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transform: scale(0.5);
+  opacity: 0;
+  transition:
+    transform 1s ease-in-out,
+    opacity 1s;
+}
+.imgLoaded {
+  transform: scale(1);
+  opacity: 1;
 }
 
+/* overlay label */
 .text {
   position: absolute;
-  top: 10%;
-  z-index: 1;
-  transform: translate(-50%, -50%);
+  top: 8%;
   left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.36);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* Fallback for browsers without aspect-ratio (optional) */
+@supports not (aspect-ratio: 1/1) {
+  .item {
+    width: 100%;
+    max-width: 260px;
+    height: 0;
+    padding-top: 100%; /* creates a square */
+  }
+  .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
