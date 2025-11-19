@@ -7,7 +7,6 @@ export function ContextProvider({ children }) {
     return localStorage.getItem("theme") || "dark";
   });
 
-  // Apply theme class and save to localStorage
   useEffect(() => {
     const root = document.documentElement;
     if (theme === "dark") {

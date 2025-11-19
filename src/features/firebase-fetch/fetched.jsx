@@ -1,8 +1,8 @@
 import { useFetch } from "../../hooks/useFetch";
+import { useState } from "react";
 import { Link } from "react-router";
 export default function ProductList() {
   const { data: products, isLoading, isError, refetch } = useFetch();
-
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -33,8 +33,15 @@ export default function ProductList() {
     );
   }
 
+  const entries = Object.entries(products).map(
+    ([_id, products]) => products.category,
+  );
+  const myArr = [...new Set(entries)];
   return (
     <div className="mx-auto grid max-w-[1300px] grid-cols-4 items-center justify-center gap-3">
+      {myArr.map((el) => {
+        return <div className="text-black">{el}</div>;
+      })}
       {Object.entries(products).map(([id, product]) => (
         <Link
           key={id}

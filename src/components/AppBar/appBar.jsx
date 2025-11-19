@@ -25,13 +25,10 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
+  maxWidth: "500px", // control width here
+  marginLeft: "auto",
+  marginRight: "auto", // centers it
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -53,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "0ch",
     },
   },
 }));
@@ -181,6 +178,9 @@ export default function PrimarySearchAppBar() {
           >
             HuntBasket
           </Typography>
+          <Box
+            sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
+          />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

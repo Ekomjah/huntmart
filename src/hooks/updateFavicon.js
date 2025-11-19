@@ -4,6 +4,6 @@ export const update = () => {
     .querySelector("link[rel='icon']")
     ?.setAttribute(
       "href",
-      isDark ? "/favicon/favicon-dark.svg" : "/favicon/favicon.svg",
+      isDark ? "/favicons/favicon-dark.svg" : "/favicons/favicon.svg",
     );
 };
