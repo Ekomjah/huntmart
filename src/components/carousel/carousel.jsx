@@ -27,6 +27,7 @@ export default function CarouselApp() {
     "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fHww",
   ];
   const [isPlaying, setIsPlaying] = useState(true);
+  const [loadedImages, setLoadedImages] = useState({});
   const progressCircle = useRef(null);
   const swiperRef = useRef(null);
   const progressContent = useRef(null);
@@ -67,7 +68,16 @@ export default function CarouselApp() {
         {img.map((image) => (
           <SwiperSlide key={image}>
             <div className={cn(styles["slide-inner"], "h-full w-full")}>
-              <img src={image} className="w-full" />
+              {!loadedImages[image] && (
+                <div className="z-1000 h-full w-full animate-pulse bg-gray-400"></div>
+              )}
+              <img
+                src={image}
+                className="w-full"
+                onLoad={() =>
+                  setLoadedImages((prev) => ({ ...prev, [image]: true }))
+                }
+              />
             </div>
           </SwiperSlide>
         ))}
