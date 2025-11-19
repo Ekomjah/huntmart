@@ -2,6 +2,9 @@
   width: 100%;
   margin: 0 auto;
   text-align: center;
+  transition:
+    background-color 1500s ease-in-out 500s,
+    color 2500s ease-in-out 1s;
 }
 
 .logo {
