@@ -49,7 +49,7 @@ export default function CarouselApp() {
   };
 
   return (
-    <>
+    <div className={styles.carouselWrapper}>
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         spaceBetween={30}
@@ -97,6 +97,6 @@ export default function CarouselApp() {
           </div>{" "}
         </div>
       </Swiper>
-    </>
+    </div>
   );
 }

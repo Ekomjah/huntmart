@@ -1,0 +1,31 @@
+.category {
+  width: 100%;
+  height: 300px;
+}
+.category :global(.swiper) {
+  width: 100%;
+  height: 100%;
+}
+
+.huntSlide {
+  width: 10%;
+  height: 100%;
+}
+
+.category :global(.swiper-slide img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category :global(.swiper-slide) {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+.carouselWrapper {
+  width: 100%;
+}
