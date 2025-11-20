@@ -117,12 +117,6 @@ button:hover {
   transform: translateY(-1px);
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto var(--hunt-primary);
-  outline-offset: 2px;
-}
-
 /* === PRIMARY ACTION BUTTON (Hunt Style) === */
 button.hunt-primary {
   background-color: var(--hunt-primary);

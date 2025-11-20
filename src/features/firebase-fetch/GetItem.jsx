@@ -1,3 +1,4 @@
+import { ShoppingBag, Plus, Minus } from "lucide-react";
 import { useParams } from "react-router";
 import { useItem } from "../../hooks/useItem";
 import { Navigate } from "react-router";
@@ -6,8 +7,15 @@ import { useState } from "react";
 import StaticRatings from "../../components/ratings/StaticRatings";
 import { cn } from "../../utils/utils";
 export default function Item() {
+  const [inputVal, setInputVal] = useState("");
+  function checkLength(e) {
+    const value = e.target.value;
+    const max = e.target.max;
+    if (+value <= +max && +value >= 0) {
+      setInputVal(value);
+    }
+  }
   const { id } = useParams();
-  const width = window.innerWidth >= 915;
   const { data: item, isLoading, isError } = useItem(id);
   const [activeImg, setActiveImg] = useState(null);
   const filterFunction = (key) => {
@@ -144,6 +152,55 @@ export default function Item() {
                 <p>{val}</p>
               </div>
             ))}
+            <div>
+              {filterFunction("stock").map((val, index) => (
+                <div key={index}>
+                  <label htmlFor={index}>
+                    In Stock: <b>{val}</b>{" "}
+                  </label>
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-1 items-center justify-center gap-2">
+                      <button
+                        className="focus:border-0"
+                        onClick={() => {
+                          console.log(val);
+                          +inputVal - 1 <= val &&
+                            +inputVal >= 1 &&
+                            setInputVal(+inputVal - 1);
+                        }}
+                      >
+                        <Minus strokeWidth={3} />
+                      </button>
+                      <p>
+                        <input
+                          type="number"
+                          className="rounded border-2 border-gray-800 text-center outline-0 font-semibold font-sans"
+                          name={val}
+                          id={index}
+                          value={inputVal}
+                          onChange={checkLength}
+                          max={val}
+                          placeholder="Quantity"
+                        />
+                      </p>
+                      <button
+                        className="focus:outline-0"
+                        onClick={() => {
+                          +inputVal + 1 <= val &&
+                            +inputVal >= -1 &&
+                            setInputVal(+inputVal + 1);
+                        }}
+                      >
+                        <Plus strokeWidth={3} />
+                      </button>
+                    </div>
+                    <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
+                      <ShoppingBag /> Add To Cart
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="mt-4 text-2xl font-semibold">Scan Here:</div>
             <BarcodeGenerator meta={filterFunction("meta")[0]} />
             {Object.entries(item)
