@@ -3,8 +3,6 @@ import JsBarcode from "jsbarcode";
 
 export default function BarcodeGenerator({ meta }) {
   const svgRef = useRef(null);
-  console.log("meta in barcode generator: ", meta);
-  console.log("meta barcode: ", fixEAN13(meta?.barcode));
 
   useEffect(() => {
     if (meta?.barcode) {
@@ -31,7 +29,7 @@ function fixEAN13(code) {
   if (!/^\d{13}$/.test(code)) return code;
 
   const digits = code.split("").map(Number);
-  const check = digits.pop();
+  digits.pop();
   const sum = digits
     .reverse()
     .reduce((acc, d, i) => acc + d * (i % 2 === 0 ? 3 : 1), 0);

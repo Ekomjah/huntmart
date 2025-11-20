@@ -11,7 +11,6 @@ async function getItem({ queryKey }) {
   if (res.data === null) {
     throw new Error(`Item with ID ${id} not found`);
   }
-  console.log("data from axios", res.data);
   return res.data;
 }
 

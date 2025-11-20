@@ -1,22 +1,8 @@
 .item {
-  /* layout */
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* Flexible but bounded width so grid wraps nicely */
-  flex: 0 1 20vw; /* allow to shrink a little, grow if space allows */
-  min-width: 140px; /* prevents being too small on narrow screens */
-  max-width: 800px; /* prevents growing too large on wide screens */
-
-  /* keep a fixed shape so images have a height to fill */
-  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 12px;
   background: #fff;
-
-  /* visuals & animation */
   transform: translateZ(0);
   transition:
     transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -34,7 +20,7 @@
 /* image fills the square and won't distort */
 .img {
   display: block;
-  width: 100%;
+  width: 500px;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -44,15 +30,14 @@
   transform: scale(0.5);
   opacity: 0;
   transition:
-    transform 1s ease-in-out,
-    opacity 1s;
+    transform 0.31s ease-in-out,
+    opacity 0.31s;
 }
 .imgLoaded {
   transform: scale(1);
   opacity: 1;
 }
 
-/* overlay label */
 .text {
   position: absolute;
   top: 8%;
@@ -69,19 +54,4 @@
   letter-spacing: 0.6px;
   text-transform: uppercase;
   pointer-events: none;
-}
-
-/* Fallback for browsers without aspect-ratio (optional) */
-@supports not (aspect-ratio: 1/1) {
-  .item {
-    width: 100%;
-    max-width: 260px;
-    height: 0;
-    padding-top: 100%; /* creates a square */
-  }
-  .img {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 }

@@ -3,7 +3,7 @@ export default function Footer() {
   const { data: products, isLoading, isError, refetch } = useFetch();
   if (isLoading) {
     return (
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-(--hunt-primary) border-t-transparent"></div>
+      <div className="mx-auto my-8 h-8 w-8 animate-spin rounded-full border-4 border-(--hunt-primary) border-t-transparent"></div>
     );
   }
   if (isError) {

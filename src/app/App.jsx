@@ -2,11 +2,11 @@ import "./App.css";
 import { useEffect } from "react";
 import CarouselApp from "../components/carousel/carousel";
 import PrimaryAppBar from "../components/AppBar/appBar";
-import ProductList from "../features/firebase-fetch/fetched";
-import HuntCategories from "../features/categories/components/hunt-categories/categories";
+import ProductList from "../features/firebase-fetch/FetchProducts";
+import HuntCategories from "../features/hunt-categories/categories";
 import { update } from "../hooks/updateFavicon";
 import Footer from "../components/footer/footer";
-import CategoryCarousel from "../features/categories/components/category-carousel/Carousel";
+import CategoryCarousel from "../features/category-carousel/Carousel";
 
 export default function App() {
   useEffect(() => {

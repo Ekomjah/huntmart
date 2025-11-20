@@ -1,6 +1,6 @@
 import style from "./category.module.css";
 import { useEffect, useState, useRef } from "react";
-import { cn } from "../../../../utils/utils";
+import { cn } from "../../utils/utils";
 
 export default function HuntCategories({ text, img }) {
   const [loaded, setLoaded] = useState(false);
