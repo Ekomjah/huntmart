@@ -1,5 +1,4 @@
 import { useFetch } from "../../hooks/useFetch";
-import { useState } from "react";
 import { Link } from "react-router";
 export default function ProductList() {
   const { data: products, isLoading, isError, refetch } = useFetch();
@@ -34,7 +33,7 @@ export default function ProductList() {
   }
 
   const entries = Object.entries(products).map(
-    ([_id, products]) => products.category,
+    ([, products]) => products.category,
   );
   const myArr = [...new Set(entries)];
   return (

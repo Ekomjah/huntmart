@@ -53,7 +53,6 @@ export default function CarouselApp() {
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         spaceBetween={30}
-        navigation={true}
         centeredSlides={true}
         autoplay={{
           delay: 5000,

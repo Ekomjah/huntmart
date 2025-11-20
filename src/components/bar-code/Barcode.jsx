@@ -16,11 +16,9 @@ export default function BarcodeGenerator({ meta }) {
   }, [meta]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex items-center justify-center gap-4">
       <svg ref={svgRef}></svg>
       <img src={meta.qrCode} alt="qr" style={{ width: 120, marginTop: 10 }} />
-      <p>Created: {meta.createdAt}</p>
-      <p>Updated: {meta.updatedAt}</p>
     </div>
   );
 }

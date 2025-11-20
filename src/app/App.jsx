@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import CarouselApp from "../components/carousel/carousel";
 import PrimaryAppBar from "../components/AppBar/appBar";
 import ProductList from "../features/firebase-fetch/FetchProducts";
-import HuntCategories from "../features/hunt-categories/categories";
 import { update } from "../hooks/updateFavicon";
 import Footer from "../components/footer/footer";
 import CategoryCarousel from "../features/category-carousel/Carousel";
+import Ratings from "../components/ratings/StaticRatings";
 
 export default function App() {
   useEffect(() => {
@@ -41,6 +41,7 @@ export default function App() {
         <h1 className="font-pop text-(--hunt-primary-deep)">
           Hunt Without Limits!
         </h1>
+        <Ratings ratings={4} />
       </div>
       <div>
         <h2 className="mt-10 mb-5 text-center text-4xl font-semibold text-(--hunt-text)">

@@ -176,7 +176,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            HuntBasket
+            HuntMart
           </Typography>
           <Box
             sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
