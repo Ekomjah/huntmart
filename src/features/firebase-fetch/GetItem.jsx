@@ -4,8 +4,10 @@ import { Navigate } from "react-router";
 import BarcodeGenerator from "../../components/bar-code/Barcode";
 import { useState } from "react";
 import StaticRatings from "../../components/ratings/StaticRatings";
+import { cn } from "../../utils/utils";
 export default function Item() {
   const { id } = useParams();
+  const width = window.innerWidth >= 915;
   const { data: item, isLoading, isError } = useItem(id);
   const [activeImg, setActiveImg] = useState(null);
   const filterFunction = (key) => {
@@ -14,15 +16,24 @@ export default function Item() {
       .map(([, val]) => val);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="mx-auto flex min-h-screen w-[80vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-(--hunt-primary) border-t-transparent"></div>
+      </div>
+    );
   if (isError) {
     console.log("some error, ", isError);
     return <Navigate to={`/errorPage`} replace />;
   }
   if (item) {
     return (
-      <div className="mx-auto flex min-h-screen w-[80vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
-        <div className="grid h-full grid-cols-2 items-stretch justify-center gap-2 rounded bg-gray-100 p-4">
+      <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
+        <div
+          className={cn(
+            "flex flex-wrap h-full items-stretch justify-center gap-2 rounded bg-gray-100 p-4 lg:grid lg:grid-cols-2",
+          )}
+        >
           <div className="flex flex-1 flex-col">
             {filterFunction("images").map((val, index) => {
               return (
@@ -79,7 +90,7 @@ export default function Item() {
                 <h1 className="text-3xl! font-bold">{val}</h1>
               </div>
             ))}
-            <div className="justify-content flex items-center gap-7">
+            <div className="justify-content flex items-center gap-2">
               {filterFunction("price").map((priceVal, index) => {
                 const discount =
                   filterFunction("discountPercentage")[index] || 0;
@@ -90,16 +101,16 @@ export default function Item() {
 
                 return (
                   <div key={index} className="flex items-center justify-center">
-                    <p className="font-pop! p-4 text-4xl font-semibold text-gray-700">
+                    <p className="font-pop! p-4 pr-1 text-4xl font-semibold text-gray-700">
                       $
                     </p>
                     {discount > 0 ? (
                       <div className="flex items-center justify-center">
                         {" "}
-                        <p className="text-3xl font-normal line-through">
+                        <p className="text-3xl font-light line-through">
                           {priceVal}
                         </p>
-                        <p className="font-pop! p-4 text-4xl font-semibold text-gray-700">
+                        <p className="font-pop! p-4 pl-1 text-4xl font-semibold text-gray-700">
                           {finalPrice}
                         </p>
                       </div>
