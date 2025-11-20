@@ -3762,7 +3762,7 @@
       "discountPercentage": 9.25,
       "rating": 2.64,
       "stock": 88,
-      "tags": ["kitchen tools", "organization"],
+      "": ["kitchen tools", "organization"],
       "sku": "KIT-BRD-TRE-067",
       "weight": 3,
       "dimensions": {

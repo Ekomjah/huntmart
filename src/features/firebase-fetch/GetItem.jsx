@@ -31,7 +31,7 @@ export default function Item() {
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div
           className={cn(
-            "flex flex-wrap h-full items-stretch justify-center gap-2 rounded bg-gray-100 p-4 lg:grid lg:grid-cols-2",
+            "flex h-full flex-wrap items-stretch justify-center gap-2 rounded bg-gray-100 p-4 lg:grid lg:grid-cols-2",
           )}
         >
           <div className="flex flex-1 flex-col">
@@ -88,6 +88,18 @@ export default function Item() {
             {filterFunction("title").map((val, index) => (
               <div key={index}>
                 <h1 className="text-3xl! font-bold">{val}</h1>
+              </div>
+            ))}
+            {filterFunction("tags").map((val, index) => (
+              <div
+                key={index}
+                className="mt-4 flex w-full items-center justify-center gap-5"
+              >
+                {val.map((tag) => (
+                  <span className="inline-block rounded-full bg-gray-200 px-2 py-1 text-sm font-medium text-gray-800 hover:bg-gray-300">
+                    {tag.toLowerCase()}
+                  </span>
+                ))}
               </div>
             ))}
             <div className="justify-content flex items-center gap-2">
