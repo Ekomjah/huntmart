@@ -1,5 +1,5 @@
 import { ShoppingBag, Plus, Minus, Heart } from "lucide-react";
-import { useParams } from "react-router";
+import { useParams, Outlet, Link } from "react-router";
 import { useItem } from "../../hooks/useItem";
 import { Navigate } from "react-router";
 import BarcodeGenerator from "../../components/bar-code/Barcode";
@@ -8,6 +8,7 @@ import StaticRatings from "../../components/ratings/StaticRatings";
 import { cn } from "../../utils/utils";
 export default function Item() {
   const [inputVal, setInputVal] = useState("");
+  const [isReviewsTabActive, setIsReviewsTabActive] = useState(false);
   function checkLength(e) {
     const value = e.target.value;
     const max = e.target.max;
@@ -36,6 +37,19 @@ export default function Item() {
     return <Navigate to={`/errorPage`} replace />;
   }
   if (item) {
+    const detailsObj = {
+      brand: filterFunction("brand")[0],
+      category: filterFunction("category")[0],
+      sku: filterFunction("sku")[0],
+      weight: filterFunction("weight")[0],
+      dimensions: filterFunction("dimensions")[0],
+      warrantyInformation: filterFunction("warrantyInformation")[0],
+      shippingInformation: filterFunction("shippingInformation")[0],
+      availabilityStatus: filterFunction("availabilityStatus")[0],
+      returnPolicy: filterFunction("returnPolicy")[0],
+      minimumOrderQuantity: filterFunction("minimumOrderQuantity")[0],
+    };
+
     return (
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div
@@ -216,18 +230,35 @@ export default function Item() {
             </div>
             <div className="mt-4 text-2xl font-semibold">Scan Here:</div>
             <BarcodeGenerator meta={filterFunction("meta")[0]} />
-            {Object.entries(item)
-              .filter(([key]) => key === "brand")
-              .map(([_key, val]) => (
-                <div key={_key}>
-                  <p>
-                    Brand:{" "}
-                    <b>
-                      <i>{val}</i>
-                    </b>
-                  </p>
-                </div>
-              ))}
+          </div>
+          <div className="col-span-2">
+            <div className="mt-4 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
+              <Link
+                to={`/products/${id}`}
+                className={cn(
+                  {
+                    "border-b-2 border-yellow-800": !isReviewsTabActive,
+                  },
+                  "font-pop text-bg-500 p-2 font-semibold",
+                )}
+                onClick={() => setIsReviewsTabActive((prev) => !prev)}
+              >
+                Details
+              </Link>
+              <Link
+                to={`/products/${id}/reviews`}
+                onClick={() => setIsReviewsTabActive((prev) => !prev)}
+                className={cn(
+                  {
+                    "border-b-2 border-yellow-800": isReviewsTabActive,
+                  },
+                  "font-pop text-bg-500 p-2 font-semibold",
+                )}
+              >
+                Reviews
+              </Link>
+            </div>
+            <Outlet context={detailsObj} />
           </div>
         </div>
       </div>
