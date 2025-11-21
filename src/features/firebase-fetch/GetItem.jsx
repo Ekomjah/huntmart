@@ -1,4 +1,4 @@
-import { ShoppingBag, Plus, Minus } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Heart } from "lucide-react";
 import { useParams } from "react-router";
 import { useItem } from "../../hooks/useItem";
 import { Navigate } from "react-router";
@@ -18,6 +18,7 @@ export default function Item() {
   const { id } = useParams();
   const { data: item, isLoading, isError } = useItem(id);
   const [activeImg, setActiveImg] = useState(null);
+  const [isHeartFull, setIsHeartFull] = useState(false);
   const filterFunction = (key) => {
     return Object.entries(item)
       .filter(([k]) => k === key)
@@ -39,7 +40,7 @@ export default function Item() {
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div
           className={cn(
-            "flex h-full flex-wrap items-stretch justify-center gap-2 rounded bg-gray-100 p-4 lg:grid lg:grid-cols-2",
+            "flex h-full flex-wrap items-stretch justify-center gap-2 rounded bg-gray-100 p-4 md:grid md:grid-cols-2",
           )}
         >
           <div className="flex flex-1 flex-col">
@@ -120,7 +121,10 @@ export default function Item() {
                     : priceVal;
 
                 return (
-                  <div key={index} className="flex items-center justify-center">
+                  <div
+                    key={index}
+                    className="mx-auto flex items-center justify-center"
+                  >
                     <p className="font-pop! p-4 pr-1 text-4xl font-semibold text-gray-700">
                       $
                     </p>
@@ -174,7 +178,7 @@ export default function Item() {
                       <p>
                         <input
                           type="number"
-                          className="rounded border-2 border-gray-800 text-center outline-0 font-semibold font-sans"
+                          className="rounded border-2 border-gray-800 text-center font-sans font-semibold outline-0"
                           name={val}
                           id={index}
                           value={inputVal}
@@ -194,9 +198,18 @@ export default function Item() {
                         <Plus strokeWidth={3} />
                       </button>
                     </div>
-                    <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
-                      <ShoppingBag /> Add To Cart
-                    </button>
+                    <div className="m-2 mt-4 flex items-center justify-center gap-7">
+                      <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
+                        <ShoppingBag /> Add To Cart
+                      </button>
+                      <button>
+                        <Heart
+                          onClick={() => setIsHeartFull(!isHeartFull)}
+                          fill={isHeartFull ? "red" : "var(--hunt-bg)"}
+                          strokeWidth={3}
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
