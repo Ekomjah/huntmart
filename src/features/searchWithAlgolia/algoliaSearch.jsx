@@ -9,89 +9,89 @@ import {
   Pagination,
 } from "react-instantsearch";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useEffect } from "react";
-import P
+import PrimarySearchAppBar from "../../components/AppBar/appBar";
+import { Link } from "react-router";
 
 // --- Algolia client ---
 const searchClient = algoliasearch(
   "3U179XKIHD",
-  "9d3d862c275cf9b6b36481e904011040"
+  "9d3d862c275cf9b6b36481e904011040",
 );
 
 // --- Product Hit card ---
 function Hit({ hit }) {
   return (
-    <article className="mb-5 grid grid-cols-[1fr_2fr] items-center p-4 justify-around bg-gray-800 rounded-2xl shadow hover:shadow-md transition-all duration-300">
+    <Link
+      to={`/products/${hit.id}`}
+      className="mb-5 grid grid-cols-[1fr_2fr] items-center justify-around rounded-2xl bg-gray-800 p-4 shadow transition-all duration-300 hover:shadow-md"
+    >
       <img
         src={hit.images?.[0]}
         alt={hit.title}
-        className="w-32 h-32 object-cover rounded-xl shrink-0 border border-gray-200"
+        className="h-32 w-32 shrink-0 rounded-xl border border-gray-200 object-cover"
       />
       <div className="flex flex-col justify-between">
         <h2 className="text-lg font-semibold text-gray-400">
           <Highlight attribute="title" hit={hit} />
         </h2>
-        <p className="text-base text-gray-400 line-clamp-2">
+        <p className="line-clamp-2 text-base text-gray-400">
           {hit.description}
         </p>
-        <p className="text-indigo-600 font-bold mt-2">${hit.price}</p>
+        <p className="mt-2 font-bold text-indigo-600">${hit.price}</p>
       </div>
-    </article>
+    </Link>
   );
 }
-
-// --- Sync the URL query with Algolia search ---
-function SearchBoxSync() {
-  const [params] = useSearchParams();
-  const query = params.get("q") || "";
-  const { refine } = useSearchBox();
-
-  useEffect(() => {
-    refine(query);
-  }, [query, refine]);
-
-  return null;
-}
-
-// --- Custom loading and empty state handler ---
-function SearchStatus() {
-  const { status } = useInstantSearch();
-  const { hits } = useHits();
-
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center py-8 text-gray-500">
-        <div className="animate-pulse text-lg">Loading results...</div>
-      </div>
-    );
-  }
-
-  if (status === "idle" && hits.length === 0) {
-    return (
-      <div className="text-center py-8 text-gray-400 text-lg">
-        No products found 😔
-      </div>
-    );
-  }
-
-  return null;
-}
-
 // --- Main Search Results Page ---
 export default function SearchResultsPage() {
   const [params] = useSearchParams();
   const query = params.get("q") || "";
 
   return (
-    <InstantSearch searchClient={searchClient} indexName="products">
-      <PrimarySearchAppBar />
+    <>
+      <PrimarySearchAppBar /> {/* stays OUTSIDE InstantSearch */}
+      <InstantSearch searchClient={searchClient} indexName="products">
+        <SearchManager query={query} />
+      </InstantSearch>
+    </>
+  );
+}
+
+// --- Manages refinement + result states ---
+function SearchManager({ query }) {
+  const { refine } = useSearchBox();
+  const { status } = useInstantSearch();
+  const { hits } = useHits();
+
+  // refine only when query changes
+  useEffect(() => {
+    refine(query);
+  }, [query]);
+
+  if (status === "loading") {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-(--hunt-primary) border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  if (status === "idle" && hits.length === 0) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center">
+        <p className="text-lg text-gray-400">No products found for “{query}”</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
       <Configure hitsPerPage={10} />
-      <SearchBoxSync />
-      <h2 className="text-xl font-semibold text-gray-700 my-4 px-4">
+      <h2 className="mt-20 px-4 text-xl font-semibold text-gray-700">
         Results for “{query}”
       </h2>
-      <SearchStatus />
       <Hits hitComponent={Hit} />
       <Pagination
         showFirst
@@ -102,6 +102,6 @@ export default function SearchResultsPage() {
           selectedItem: "bg-indigo-600 text-white",
         }}
       />
-    </InstantSearch>
+    </>
   );
 }

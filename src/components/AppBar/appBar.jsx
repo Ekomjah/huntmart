@@ -17,6 +17,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useThemeContext } from "../../context/context";
+import ClearIcon from "@mui/icons-material/Clear";
+import { useNavigate } from "react-router";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -181,7 +184,7 @@ export default function PrimarySearchAppBar() {
           <Box
             sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
           />
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -189,7 +192,8 @@ export default function PrimarySearchAppBar() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
+          <CustomSearchBox/>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton
             size="large"
@@ -251,5 +255,52 @@ export default function PrimarySearchAppBar() {
       {renderMobileMenu}
       {renderMenu}
     </Box>
+  );
+}
+
+export function CustomSearchBox() {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (event) => setQuery(event.target.value);
+
+  const handleClear = () => setQuery("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          value={query}
+          onChange={handleChange}
+        />
+        {query && (
+          <IconButton
+            onClick={handleClear}
+            size="small"
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "inherit",
+            }}
+          >
+            <ClearIcon fontSize="small" />
+          </IconButton>
+        )}
+      </Search>
+    </form>
   );
 }
