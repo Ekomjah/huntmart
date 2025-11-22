@@ -13,8 +13,8 @@ export default function Reviews() {
             key={date}
           >
             <div className="font-pop flex items-center justify-between">
-              <div className="flex flex-col md:flex-row items-center gap-2">
-                <div className="text-sm m-0 font-semibold text-gray-800">
+              <div className="flex flex-col items-center md:flex-row md:gap-2">
+                <div className="m-0 text-sm font-semibold text-gray-800">
                   {reviewerName}
                 </div>
                 <div className="text-gray-400">
