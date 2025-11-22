@@ -218,9 +218,8 @@ export default function Item() {
                       <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
                         <ShoppingBag /> Add To Cart
                       </button>
-                      <div className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)">
+                      <div onClick={() => setIsHeartFull(!isHeartFull)}  className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)">
                         <Heart
-                          onClick={() => setIsHeartFull(!isHeartFull)}
                           fill={isHeartFull ? "red" : "var(--hunt-bg)"}
                           strokeWidth={3}
                         />

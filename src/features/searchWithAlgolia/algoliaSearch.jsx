@@ -44,14 +44,14 @@ function Hit({ hit }) {
     </Link>
   );
 }
-// --- Main Search Results Page ---
+
 export default function SearchResultsPage() {
   const [params] = useSearchParams();
   const query = params.get("q") || "";
 
   return (
     <>
-      <PrimarySearchAppBar /> {/* stays OUTSIDE InstantSearch */}
+      <PrimarySearchAppBar />
       <InstantSearch searchClient={searchClient} indexName="products">
         <SearchManager query={query} />
       </InstantSearch>
@@ -59,7 +59,6 @@ export default function SearchResultsPage() {
   );
 }
 
-// --- Manages refinement + result states ---
 function SearchManager({ query }) {
   const { refine } = useSearchBox();
   const { status } = useInstantSearch();
