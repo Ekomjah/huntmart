@@ -1,4 +1,5 @@
 import { useOutletContext } from "react-router";
+import BarcodeGenerator from "../../../components/bar-code/Barcode";
 function Details() {
   const data = useOutletContext();
   const {
@@ -12,6 +13,7 @@ function Details() {
     availabilityStatus,
     returnPolicy,
     minimumOrderQuantity,
+    meta,
   } = data;
   return (
     <>
@@ -38,6 +40,8 @@ function Details() {
         <p>Status: {availabilityStatus}</p>
         <p>Return Policy: {returnPolicy}</p>
         <p>Minimum Order: {minimumOrderQuantity}</p>
+        <div className="mt-4 text-2xl font-semibold">Scan Here:</div>
+        <BarcodeGenerator meta={meta} />
       </div>
     </>
   );

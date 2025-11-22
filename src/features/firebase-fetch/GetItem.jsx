@@ -2,13 +2,13 @@ import { ShoppingBag, Plus, Minus, Heart } from "lucide-react";
 import { useParams, Outlet, Link } from "react-router";
 import { useItem } from "../../hooks/useItem";
 import { Navigate } from "react-router";
-import BarcodeGenerator from "../../components/bar-code/Barcode";
 import { useState } from "react";
 import StaticRatings from "../../components/ratings/StaticRatings";
 import { cn } from "../../utils/utils";
 export default function Item() {
   const [inputVal, setInputVal] = useState("");
-  const [isReviewsTabActive, setIsReviewsTabActive] = useState(false);
+  const [isReviewsTabActive, setIsReviewsTabActive] = useState("details");
+  const currentTab = isReviewsTabActive === "details";
   function checkLength(e) {
     const value = e.target.value;
     const max = e.target.max;
@@ -48,6 +48,7 @@ export default function Item() {
       availabilityStatus: filterFunction("availabilityStatus")[0],
       returnPolicy: filterFunction("returnPolicy")[0],
       minimumOrderQuantity: filterFunction("minimumOrderQuantity")[0],
+      meta: filterFunction("meta")[0],
     };
 
     return (
@@ -116,7 +117,7 @@ export default function Item() {
             {filterFunction("tags").map((val, index) => (
               <div
                 key={index}
-                className="mt-4 flex w-full items-center justify-center gap-5"
+                className="mt-4 flex w-full items-center justify-start gap-5"
               >
                 {val.map((tag) => (
                   <span className="inline-block rounded-full bg-gray-200 px-2 py-1 text-sm font-medium text-gray-800 hover:bg-gray-300">
@@ -176,10 +177,10 @@ export default function Item() {
                   <label htmlFor={index}>
                     In Stock: <b>{val}</b>{" "}
                   </label>
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="flex flex-1 items-center justify-center gap-2">
+                  <div className="mt-4 grid grid-cols-subgrid items-center justify-center">
+                    <div className="flex flex-1 items-center justify-between gap-2">
                       <button
-                        className="focus:border-0"
+                        className="p-3! focus:border-0"
                         onClick={() => {
                           console.log(val);
                           +inputVal - 1 <= val &&
@@ -202,7 +203,7 @@ export default function Item() {
                         />
                       </p>
                       <button
-                        className="focus:outline-0"
+                        className="p-3! focus:outline-0"
                         onClick={() => {
                           +inputVal + 1 <= val &&
                             +inputVal >= -1 &&
@@ -212,24 +213,22 @@ export default function Item() {
                         <Plus strokeWidth={3} />
                       </button>
                     </div>
-                    <div className="m-2 mt-4 flex items-center justify-center gap-7">
+                    <div className="mt-4 flex items-center justify-between gap-4">
                       <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
                         <ShoppingBag /> Add To Cart
                       </button>
-                      <button>
+                      <div className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)">
                         <Heart
                           onClick={() => setIsHeartFull(!isHeartFull)}
                           fill={isHeartFull ? "red" : "var(--hunt-bg)"}
                           strokeWidth={3}
                         />
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-4 text-2xl font-semibold">Scan Here:</div>
-            <BarcodeGenerator meta={filterFunction("meta")[0]} />
           </div>
           <div className="col-span-2">
             <div className="mt-4 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
@@ -237,20 +236,20 @@ export default function Item() {
                 to={`/products/${id}`}
                 className={cn(
                   {
-                    "border-b-2 border-yellow-800": !isReviewsTabActive,
+                    "border-b-2 border-yellow-800": currentTab,
                   },
                   "font-pop text-bg-500 p-2 font-semibold",
                 )}
-                onClick={() => setIsReviewsTabActive((prev) => !prev)}
+                onClick={() => setIsReviewsTabActive("details")}
               >
                 Details
               </Link>
               <Link
                 to={`/products/${id}/reviews`}
-                onClick={() => setIsReviewsTabActive((prev) => !prev)}
+                onClick={() => setIsReviewsTabActive("reviews")}
                 className={cn(
                   {
-                    "border-b-2 border-yellow-800": isReviewsTabActive,
+                    "border-b-2 border-yellow-800": !currentTab,
                   },
                   "font-pop text-bg-500 p-2 font-semibold",
                 )}
