@@ -231,7 +231,7 @@ export default function Item() {
               ))}
             </div>
           </div>
-          <div className="col-span-2 w-full bg-gray-1">
+          <div className="col-span-2 w-full bg-gray-100">
             <div className="mt-4 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
               <Link
                 to={`/products/${id}`}

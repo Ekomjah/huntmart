@@ -4,7 +4,7 @@ import StaticRatings from "../../../components/ratings/StaticRatings";
 export default function Reviews() {
   const { reviewsObj } = useOutletContext();
   return (
-    <div>
+    <div className="w-full">
       <h2 className="font-pop m-4 text-4xl font-semibold">Customer Reviews</h2>
       {reviewsObj.map(
         ({ rating, comment, date, reviewerName, reviewerEmail }) => (
@@ -12,9 +12,9 @@ export default function Reviews() {
             className="mb-6 rounded-lg border border-gray-500 bg-gray-200 p-4 shadow"
             key={date}
           >
-            <div className="font-pop flex w-full items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="text-sm font-semibold text-gray-800">
+            <div className="font-pop flex items-center justify-between">
+              <div className="flex flex-col md:flex-row items-center gap-2">
+                <div className="text-sm m-0 font-semibold text-gray-800">
                   {reviewerName}
                 </div>
                 <div className="text-gray-400">
