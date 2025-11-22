@@ -6,7 +6,7 @@ import { useState } from "react";
 import StaticRatings from "../../components/ratings/StaticRatings";
 import { cn } from "../../utils/utils";
 export default function Item() {
-  const [inputVal, setInputVal] = useState("");
+  const [inputVal, setInputVal] = useState(1);
   const [isReviewsTabActive, setIsReviewsTabActive] = useState("details");
   const currentTab = isReviewsTabActive === "details";
   function checkLength(e) {
@@ -51,6 +51,7 @@ export default function Item() {
       meta: filterFunction("meta")[0],
     };
 
+    const reviewsObj = filterFunction("reviews")[0];
     return (
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div
@@ -230,7 +231,7 @@ export default function Item() {
               ))}
             </div>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-2 w-full bg-gray-1">
             <div className="mt-4 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
               <Link
                 to={`/products/${id}`}
@@ -257,7 +258,7 @@ export default function Item() {
                 Reviews
               </Link>
             </div>
-            <Outlet context={detailsObj} />
+            <Outlet context={{ detailsObj, reviewsObj }} />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router";
 import BarcodeGenerator from "../../../components/bar-code/Barcode";
 function Details() {
-  const data = useOutletContext();
+  const { detailsObj } = useOutletContext();
   const {
     brand,
     category,
@@ -14,7 +14,7 @@ function Details() {
     returnPolicy,
     minimumOrderQuantity,
     meta,
-  } = data;
+  } = detailsObj;
   return (
     <>
       <div>
