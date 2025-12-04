@@ -87,7 +87,7 @@ function SearchManager({ query }) {
 
   return (
     <>
-      <Configure hitsPerPage={10} />
+      <Configure hitsPerPage={5} />
       <h2 className="mt-20 px-4 text-xl font-semibold text-gray-700">
         Results for “{query}”
       </h2>
@@ -97,7 +97,7 @@ function SearchManager({ query }) {
         showLast
         classNames={{
           list: "flex space-x-2 m-4 justify-center",
-          item: "px-3 py-1 border rounded-md cursor-pointer hover:bg-gray-200 text-gray-600",
+          item: "px-3 py-1 pagination-item border rounded-md cursor-pointer hover:bg-gray-200 text-gray-600",
           selectedItem: "bg-indigo-600 text-white",
         }}
       />

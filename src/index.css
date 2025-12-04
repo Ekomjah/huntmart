@@ -116,7 +116,9 @@ button:hover {
   color: white;
   transform: translateY(-1px);
 }
-
+.pagination-item{
+  touch-action: manipulation;
+}
 /* === PRIMARY ACTION BUTTON (Hunt Style) === */
 button.hunt-primary {
   background-color: var(--hunt-primary);
