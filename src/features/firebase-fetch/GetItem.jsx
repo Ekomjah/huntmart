@@ -218,7 +218,10 @@ export default function Item() {
                       <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
                         <ShoppingBag /> Add To Cart
                       </button>
-                      <div onClick={() => setIsHeartFull(!isHeartFull)}  className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)">
+                      <div
+                        onClick={() => setIsHeartFull(!isHeartFull)}
+                        className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
+                      >
                         <Heart
                           fill={isHeartFull ? "red" : "var(--hunt-bg)"}
                           strokeWidth={3}
@@ -230,13 +233,14 @@ export default function Item() {
               ))}
             </div>
           </div>
-          <div className="col-span-2 w-full bg-gray-100">
-            <div className="mt-4 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
+          <div className="col-span-2 w-[95vw] bg-gray-100">
+            <div className="mt-4 ml-5 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
               <Link
                 to={`/products/${id}`}
                 className={cn(
                   {
-                    "border-b-2 border-yellow-800": currentTab,
+                    "rounded-full border-t border-b-2 border-gray-700":
+                      currentTab,
                   },
                   "font-pop text-bg-500 p-2 font-semibold",
                 )}
@@ -249,7 +253,8 @@ export default function Item() {
                 onClick={() => setIsReviewsTabActive("reviews")}
                 className={cn(
                   {
-                    "border-b-2 border-yellow-800": !currentTab,
+                    "rounded-full border-t border-b-2 border-gray-700":
+                      !currentTab,
                   },
                   "font-pop text-bg-500 p-2 font-semibold",
                 )}
