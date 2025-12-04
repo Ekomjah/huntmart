@@ -10,4 +10,13 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./tests/setup.js",
   },
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      host: '192.168.0.3',
+      protocol: 'ws'
+    }
+  }
 });
