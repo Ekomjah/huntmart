@@ -4,7 +4,7 @@ import StaticRatings from "../../../components/ratings/StaticRatings";
 export default function Reviews() {
   const { reviewsObj } = useOutletContext();
   return (
-    <div className="w-[95vw] px-4">
+    <div className="mx-auto w-full px-1">
       <h2 className="font-pop m-4 text-xl font-semibold">Customer Reviews</h2>
       {reviewsObj.map(
         ({ rating, comment, date, reviewerName, reviewerEmail }) => (

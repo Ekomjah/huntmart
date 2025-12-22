@@ -16,7 +16,7 @@ function Details() {
     meta,
   } = detailsObj;
   return (
-    <>
+    <div className="mx-auto max-w-5xl px-1">
       <h2 className="font-pop m-4 text-2xl font-semibold">Product Details</h2>
       <div className="flex flex-col gap-2 text-left">
         <div className="flex gap-2">
@@ -62,7 +62,7 @@ function Details() {
       </div>
       <div className="mt-4 text-2xl font-semibold">Scan Here:</div>
       <BarcodeGenerator meta={meta} />
-    </>
+    </div>
   );
 }
 export default Details;

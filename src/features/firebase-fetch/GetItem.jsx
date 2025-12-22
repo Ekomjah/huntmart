@@ -5,10 +5,14 @@ import { Navigate } from "react-router";
 import { useState } from "react";
 import StaticRatings from "../../components/ratings/StaticRatings";
 import { cn } from "../../utils/utils";
+import { useLocation } from "react-router";
+
 export default function Item() {
   const [inputVal, setInputVal] = useState(1);
-  const [isReviewsTabActive, setIsReviewsTabActive] = useState("details");
-  const currentTab = isReviewsTabActive === "details";
+  const location = useLocation();
+
+  const currentTab = location.pathname.includes("reviews");
+
   function checkLength(e) {
     const value = e.target.value;
     const max = e.target.max;
@@ -127,7 +131,7 @@ export default function Item() {
                 ))}
               </div>
             ))}
-            <div className="justify-content flex items-center gap-2">
+            <div className="flex items-center justify-between">
               {filterFunction("price").map((priceVal, index) => {
                 const discount =
                   filterFunction("discountPercentage")[index] || 0;
@@ -137,11 +141,8 @@ export default function Item() {
                     : priceVal;
 
                 return (
-                  <div
-                    key={index}
-                    className="mx-auto flex items-center justify-center"
-                  >
-                    <p className="font-pop! p-4 pr-1 text-4xl font-semibold text-gray-700">
+                  <div key={index} className="flex items-center justify-center">
+                    <p className="font-pop! p-1 text-4xl font-semibold text-gray-700">
                       $
                     </p>
                     {discount > 0 ? (
@@ -169,16 +170,16 @@ export default function Item() {
             </div>
             {filterFunction("description").map((val, index) => (
               <div key={index}>
-                <p>{val}</p>
+                <p className="text-justify">{val}</p>
               </div>
             ))}
             <div>
               {filterFunction("stock").map((val, index) => (
                 <div key={index}>
-                  <label htmlFor={index}>
-                    In Stock: <b>{val}</b>{" "}
+                  <label className="p-4" htmlFor={index}>
+                    <b>{val}</b> items in stock.
                   </label>
-                  <div className="mt-4 grid grid-cols-subgrid items-center justify-center">
+                  <div className="mt-4 grid grid-cols-subgrid items-center">
                     <div className="flex flex-1 items-center justify-between gap-2">
                       <button
                         className="p-3! focus:border-0"
@@ -215,7 +216,7 @@ export default function Item() {
                       </button>
                     </div>
                     <div className="mt-4 flex items-center justify-between gap-4">
-                      <button className="flex flex-1 items-center justify-between gap-7 bg-black p-2 font-semibold text-white">
+                      <button className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white">
                         <ShoppingBag /> Add To Cart
                       </button>
                       <div
@@ -233,30 +234,28 @@ export default function Item() {
               ))}
             </div>
           </div>
-          <div className="col-span-2 w-[95vw] bg-gray-100">
+          <div className="col-span-2 w-full bg-gray-100">
             <div className="mt-4 ml-5 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
               <Link
                 to={`/products/${id}`}
                 className={cn(
+                  "font-pop text-bg-500 rounded-full p-2 font-semibold transition-colors duration-300 ease-in",
                   {
-                    "rounded-full border-t border-b-2 border-gray-700":
-                      currentTab,
+                    "bg-indigo-600 text-white hover:bg-indigo-800": !currentTab,
+                    "bg-gray-200 text-gray-700 hover:bg-gray-300": currentTab,
                   },
-                  "font-pop text-bg-500 p-2 font-semibold",
                 )}
-                onClick={() => setIsReviewsTabActive("details")}
               >
                 Details
               </Link>
               <Link
                 to={`/products/${id}/reviews`}
-                onClick={() => setIsReviewsTabActive("reviews")}
                 className={cn(
+                  "font-pop text-bg-500 rounded-full p-2 font-semibold transition",
                   {
-                    "rounded-full border-t border-b-2 border-gray-700":
-                      !currentTab,
+                    "bg-indigo-600 text-white": currentTab,
+                    "bg-gray-200 text-gray-700 hover:bg-gray-300": !currentTab,
                   },
-                  "font-pop text-bg-500 p-2 font-semibold",
                 )}
               >
                 Reviews
