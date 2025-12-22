@@ -106,17 +106,17 @@ button {
   background-color: var(--hunt-surface);
   color: var(--hunt-text);
   cursor: pointer;
-  transition: all 0.25s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
 }
 
 button:hover {
   border-color: var(--hunt-primary);
   background-color: var(--hunt-primary);
   color: white;
-  transform: translateY(-1px);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
-.pagination-item{
+.pagination-item {
   touch-action: manipulation;
 }
 /* === PRIMARY ACTION BUTTON (Hunt Style) === */
@@ -128,4 +128,8 @@ button.hunt-primary {
 button.hunt-primary:hover {
   background-color: #e55a2b;
   border-color: transparent;
+}
+
+button:active {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
 }

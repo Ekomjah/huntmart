@@ -9,6 +9,7 @@ import { useLocation } from "react-router";
 
 export default function Item() {
   const [inputVal, setInputVal] = useState(1);
+  const [currentThumbnail, setCurrentThumbnail] = useState(0);
   const location = useLocation();
 
   const currentTab = location.pathname.includes("reviews");
@@ -92,12 +93,18 @@ export default function Item() {
                       return (
                         <div
                           key={imgIndex}
-                          className="w-[50px] cursor-pointer rounded ring-1 ring-gray-700"
-                          onClick={() =>
+                          className={cn(
+                            "w-[50px] cursor-pointer rounded ring-1 ring-gray-700",
+                            {
+                              "ring-3": currentThumbnail === imgIndex,
+                            },
+                          )}
+                          onClick={() => {
+                            setCurrentThumbnail(imgIndex);
                             setActiveImg(
                               `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${imgUrl}`,
-                            )
-                          }
+                            );
+                          }}
                         >
                           <img
                             src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${imgUrl}`}
