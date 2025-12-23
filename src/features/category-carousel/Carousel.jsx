@@ -1,15 +1,13 @@
 import HuntCategories from "../hunt-categories/categories";
 import { categoryImages } from "./data";
 import carousel from "./carousel.module.css";
-// Import Swiper React components
+
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// import required modules
 import { Pagination, Navigation } from "swiper/modules";
 
 export default function Carousel() {
