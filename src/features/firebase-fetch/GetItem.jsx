@@ -32,6 +32,8 @@ export default function Item() {
       .map(([, val]) => val);
   };
 
+  const { addToCartData } = useCartStore();
+
   if (isLoading)
     return (
       <div className="mx-auto flex min-h-screen w-[80vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
@@ -59,12 +61,12 @@ export default function Item() {
       stock: filterFunction("stock")[0],
       reviews: filterFunction("reviews")[0],
       images: filterFunction("images")[0],
-      title: filterFunction("title"),
+      title: filterFunction("title")[0],
       tags: filterFunction("tags")[0],
-      price: filterFunction("price"),
-      discountPercentage: filterFunction("discountPercentage"),
-      rating: filterFunction("rating"),
-      description: filterFunction("description"),
+      price: filterFunction("price")[0],
+      discountPercentage: filterFunction("discountPercentage")[0],
+      rating: filterFunction("rating")[0],
+      description: filterFunction("description")[0],
     };
 
     console.log(detailsObj.images);
@@ -86,13 +88,10 @@ export default function Item() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="w-full flex w-full items-center justify-center gap-5">
+            <div className="flex w-full items-center justify-center gap-5">
               {detailsObj.images.map((val, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="mt-4"
-                  >
+                  <div key={index} className="mt-4">
                     <div
                       className={cn(
                         "w-[50px] cursor-pointer rounded ring-1 ring-gray-700",
@@ -169,6 +168,13 @@ export default function Item() {
                       className="p-3! focus:border-0"
                       onClick={() => {
                         +inputVal >= 1 && setInputVal(+inputVal - 1);
+                        addToCartData({
+                          id: detailsObj.id,
+                          title: detailsObj.title,
+                          price: detailsObj.price,
+                          image: detailsObj.images[0],
+                          quantity: inputVal + 1,
+                        });
                       }}
                     >
                       <Minus strokeWidth={3} />
@@ -188,6 +194,13 @@ export default function Item() {
                       onClick={() => {
                         +inputVal + 1 <= detailsObj.stock &&
                           setInputVal(+inputVal + 1);
+                        addToCartData({
+                          id: detailsObj.id,
+                          title: detailsObj.title,
+                          price: detailsObj.price,
+                          image: detailsObj.images[0],
+                          quantity: inputVal + 1,
+                        });
                       }}
                     >
                       <Plus strokeWidth={3} />
@@ -210,7 +223,19 @@ export default function Item() {
                   <div className="mt-4 flex items-center justify-between gap-4">
                     <button
                       className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
-                      onClick={() => setInputVal(1)}
+                      onClick={() => {
+                        setInputVal(1);
+                        addToCartData({
+                          id: detailsObj.id,
+                          title: detailsObj.title,
+                          price: detailsObj.price,
+                          image: detailsObj.images[0],
+                          quantity:
+                            inputVal + 1 > detailsObj.stock
+                              ? detailsObj.stock
+                              : inputVal + 1,
+                        });
+                      }}
                     >
                       <ShoppingBag /> Add To Cart
                     </button>
