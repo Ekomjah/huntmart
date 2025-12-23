@@ -1,13 +1,7 @@
 import { useOutletContext } from "react-router";
-import { useBear } from "@/stores/useBearStore";
-import BarcodeGenerator from "../../../components/bar-code/Barcode";
 
 function Details() {
   const { detailsObj } = useOutletContext();
-  const bears = useBear((state) => state.bears);
-  const increaseBearCounter = useBear((state) => state.increaseBearsCounter);
-  const reduceBearCounter = useBear((state) => state.reduceBearsCounter);
-  const resetBearCounter = useBear((state) => state.removeAllBears);
   const {
     brand,
     category,
@@ -24,21 +18,6 @@ function Details() {
   return (
     <div className="mx-auto max-w-5xl px-1">
       <h2 className="font-pop m-4 text-2xl font-semibold">Product Details</h2>
-      <div>
-        <h2 className="text-sm font-semibold text-gray-800">
-          Bears Count: {bears}
-        </h2>
-        <div>
-          <button onClick={increaseBearCounter}>+</button>
-          <button onClick={reduceBearCounter}>-</button>
-          <button
-            className="bg-red-500 p-4 text-white transition-colors duration-300 ease-in hover:bg-red-700"
-            onClick={resetBearCounter}
-          >
-            Reset
-          </button>
-        </div>
-      </div>
       <div className="flex flex-col gap-2 text-left">
         <div className="flex gap-2">
           <h2 className="text-sm font-semibold text-gray-800">Brand:</h2>
