@@ -7,6 +7,8 @@ import { update } from "../hooks/updateFavicon";
 import Footer from "../components/footer/footer";
 import CategoryCarousel from "../features/category-carousel/Carousel";
 
+// TODO: ADD A RELATED PRODUCTS TAB TO DISPLAY PRODUCTS IN THE SAME CATEGORY IN THE ITEMS PAGE :D
+
 export default function App() {
   useEffect(() => {
     update();

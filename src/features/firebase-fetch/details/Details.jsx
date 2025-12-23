@@ -1,4 +1,5 @@
 import { useOutletContext } from "react-router";
+import BarcodeGenerator from "@/components/bar-code/Barcode";
 
 function Details() {
   const { detailsObj } = useOutletContext();

@@ -1,10 +1,10 @@
 import { ShoppingBag, Plus, Minus, Heart } from "lucide-react";
 import { useParams, Outlet, Link } from "react-router";
-import { useItem } from "../../hooks/useItem";
+import { useItem } from "@/hooks/useItem";
 import { Navigate } from "react-router";
 import { useState } from "react";
-import StaticRatings from "../../components/ratings/StaticRatings";
-import { cn } from "../../utils/utils";
+import StaticRatings from "@/components/ratings/StaticRatings";
+import { cn } from "@/utils/utils";
 import { useLocation } from "react-router";
 
 export default function Item() {
@@ -186,56 +186,70 @@ export default function Item() {
                   <label className="p-4" htmlFor={index}>
                     <b>{val}</b> items in stock.
                   </label>
+
                   <div className="mt-4 grid grid-cols-subgrid items-center">
-                    <div className="flex flex-1 items-center justify-between gap-2">
-                      <button
-                        className="p-3! focus:border-0"
-                        onClick={() => {
-                          console.log(val);
-                          +inputVal - 1 <= val &&
-                            +inputVal >= 1 &&
-                            setInputVal(+inputVal - 1);
-                        }}
-                      >
-                        <Minus strokeWidth={3} />
-                      </button>
-                      <p>
-                        <input
-                          type="number"
-                          className="rounded border-2 border-gray-800 text-center font-sans font-semibold outline-0"
-                          name={val}
-                          id={index}
-                          value={inputVal}
-                          onChange={checkLength}
-                          max={val}
-                          placeholder="Quantity"
-                        />
-                      </p>
-                      <button
-                        className="p-3! focus:outline-0"
-                        onClick={() => {
-                          +inputVal + 1 <= val &&
-                            +inputVal >= -1 &&
-                            setInputVal(+inputVal + 1);
-                        }}
-                      >
-                        <Plus strokeWidth={3} />
-                      </button>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between gap-4">
-                      <button className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white">
-                        <ShoppingBag /> Add To Cart
-                      </button>
-                      <div
-                        onClick={() => setIsHeartFull(!isHeartFull)}
-                        className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
-                      >
-                        <Heart
-                          fill={isHeartFull ? "red" : "var(--hunt-bg)"}
-                          strokeWidth={3}
-                        />
+                    {inputVal > 0 ? (
+                      <div className="flex flex-1 items-center justify-between gap-2">
+                        <button
+                          className="p-3! focus:border-0"
+                          onClick={() => {
+                            +inputVal >= 1 && setInputVal(+inputVal - 1);
+                          }}
+                        >
+                          <Minus strokeWidth={3} />
+                        </button>
+                        <p>
+                          <input
+                            type="number"
+                            className="rounded border-2 border-gray-800 text-center font-sans font-semibold outline-0"
+                            name={val}
+                            id={index}
+                            value={inputVal}
+                            onChange={checkLength}
+                            max={val}
+                            placeholder="Quantity"
+                          />
+                        </p>
+                        <button
+                          className="p-3! focus:outline-0"
+                          onClick={() => {
+                            +inputVal + 1 <= val &&
+                              +inputVal >= -1 &&
+                              setInputVal(+inputVal + 1);
+                          }}
+                        >
+                          <Plus strokeWidth={3} />
+                        </button>
+
+                        <div
+                          onClick={() => setIsHeartFull(!isHeartFull)}
+                          className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
+                        >
+                          <Heart
+                            fill={isHeartFull ? "red" : "var(--hunt-bg)"}
+                            strokeWidth={3}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="mt-4 flex items-center justify-between gap-4">
+                        <button
+                          className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
+                          onClick={() => setInputVal(1)}
+                        >
+                          <ShoppingBag /> Add To Cart
+                        </button>
+                        <div
+                          onClick={() => setIsHeartFull(!isHeartFull)}
+                          className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
+                        >
+                          <Heart
+                            fill={isHeartFull ? "red" : "var(--hunt-bg)"}
+                            strokeWidth={3}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
