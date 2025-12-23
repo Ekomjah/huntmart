@@ -5,6 +5,7 @@ import { Navigate } from "react-router";
 import { useState } from "react";
 import StaticRatings from "@/components/ratings/StaticRatings";
 import { cn } from "@/utils/utils";
+import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from "react-router";
 
 export default function Item() {
@@ -43,6 +44,7 @@ export default function Item() {
   }
   if (item) {
     const detailsObj = {
+      id: filterFunction("id")[0],
       brand: filterFunction("brand")[0],
       category: filterFunction("category")[0],
       sku: filterFunction("sku")[0],
@@ -54,9 +56,18 @@ export default function Item() {
       returnPolicy: filterFunction("returnPolicy")[0],
       minimumOrderQuantity: filterFunction("minimumOrderQuantity")[0],
       meta: filterFunction("meta")[0],
+      stock: filterFunction("stock")[0],
+      reviews: filterFunction("reviews")[0],
+      images: filterFunction("images")[0],
+      title: filterFunction("title"),
+      tags: filterFunction("tags")[0],
+      price: filterFunction("price"),
+      discountPercentage: filterFunction("discountPercentage"),
+      rating: filterFunction("rating"),
+      description: filterFunction("description"),
     };
 
-    const reviewsObj = filterFunction("reviews")[0];
+    console.log(detailsObj.images);
     return (
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div
@@ -65,201 +76,156 @@ export default function Item() {
           )}
         >
           <div className="flex flex-1 flex-col">
-            {filterFunction("images").map((val, index) => {
-              return (
-                <div
-                  key={index}
-                  className="mx-auto w-[300px] flex-1 rounded bg-gray-200 shadow-lg"
-                >
-                  <img
-                    src={
-                      activeImg ||
-                      `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${val[0]}`
-                    }
-                    alt="item-thumbnail"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              );
-            })}
-            <div className="w-full flex-1">
-              {filterFunction("images").map((val, index) => {
+            <div className="mx-auto w-[300px] flex-1 rounded bg-gray-200 shadow-lg">
+              <img
+                src={
+                  activeImg ||
+                  `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${detailsObj.images[0]}`
+                }
+                alt="item-thumbnail"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="w-full flex w-full items-center justify-center gap-5">
+              {detailsObj.images.map((val, index) => {
                 return (
                   <div
                     key={index}
-                    className="mt-4 flex w-full items-center justify-center gap-5"
+                    className="mt-4"
                   >
-                    {val.map((imgUrl, imgIndex) => {
-                      return (
-                        <div
-                          key={imgIndex}
-                          className={cn(
-                            "w-[50px] cursor-pointer rounded ring-1 ring-gray-700",
-                            {
-                              "ring-3": currentThumbnail === imgIndex,
-                            },
-                          )}
-                          onClick={() => {
-                            setCurrentThumbnail(imgIndex);
-                            setActiveImg(
-                              `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${imgUrl}`,
-                            );
-                          }}
-                        >
-                          <img
-                            src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${imgUrl}`}
-                            key={imgIndex}
-                            alt="item-thumbnail"
-                            className="h-full w-full"
-                          />
-                        </div>
-                      );
-                    })}
+                    <div
+                      className={cn(
+                        "w-[50px] cursor-pointer rounded ring-1 ring-gray-700",
+                        {
+                          "ring-3": currentThumbnail === index,
+                        },
+                      )}
+                      onClick={() => {
+                        setCurrentThumbnail(index);
+                        setActiveImg(
+                          `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${val}`,
+                        );
+                      }}
+                    >
+                      <img
+                        src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${val}`}
+                        alt="item-thumbnail"
+                        className="h-full w-full"
+                      />
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
           <div>
-            {filterFunction("title").map((val, index) => (
-              <div key={index}>
-                <h1 className="text-3xl! font-bold">{val}</h1>
-              </div>
-            ))}
-            {filterFunction("tags").map((val, index) => (
-              <div
-                key={index}
-                className="mt-4 flex w-full items-center justify-start gap-5"
-              >
-                {val.map((tag) => (
-                  <span className="inline-block rounded-full bg-gray-200 px-2 py-1 text-sm font-medium text-gray-800 hover:bg-gray-300">
-                    {tag.toLowerCase()}
-                  </span>
-                ))}
-              </div>
-            ))}
-            <div className="flex items-center justify-between">
-              {filterFunction("price").map((priceVal, index) => {
-                const discount =
-                  filterFunction("discountPercentage")[index] || 0;
-                const finalPrice =
-                  discount > 0
-                    ? (priceVal - (discount / 100) * priceVal).toFixed(2)
-                    : priceVal;
-
-                return (
-                  <div key={index} className="flex items-center justify-center">
-                    <p className="font-pop! p-1 text-4xl font-semibold text-gray-700">
-                      $
-                    </p>
-                    {discount > 0 ? (
-                      <div className="flex items-center justify-center">
-                        {" "}
-                        <p className="text-3xl font-light line-through">
-                          {priceVal}
-                        </p>
-                        <p className="font-pop! p-4 pl-1 text-4xl font-semibold text-gray-700">
-                          {finalPrice}
-                        </p>
-                      </div>
-                    ) : (
-                      finalPrice
-                    )}
-                  </div>
-                );
-              })}
-
-              {filterFunction("rating").map((val, index) => (
-                <div key={index}>
-                  <StaticRatings ratings={Math.floor(val)} />
-                </div>
+            <h1 className="text-3xl! font-bold">{detailsObj.title}</h1>
+            <div className="mt-4 flex w-full items-center justify-start gap-5">
+              {detailsObj.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="inline-block rounded-full bg-gray-200 px-2 py-1 text-sm font-medium text-gray-800 hover:bg-gray-300"
+                >
+                  {tag.toLowerCase()}
+                </span>
               ))}
             </div>
-            {filterFunction("description").map((val, index) => (
-              <div key={index}>
-                <p className="text-justify">{val}</p>
-              </div>
-            ))}
-            <div>
-              {filterFunction("stock").map((val, index) => (
-                <div key={index}>
-                  <label
-                    className={cn("p-4", { "text-red-600": val < 1 })}
-                    htmlFor={index}
-                  >
-                    <b>{val}</b> items in stock.
-                  </label>
-
-                  <div className="mt-4 grid grid-cols-subgrid items-center">
-                    {inputVal > 0 && val > 0 ? (
-                      <div className="flex flex-1 items-center justify-between gap-2">
-                        <button
-                          className="p-3! focus:border-0"
-                          onClick={() => {
-                            +inputVal >= 1 && setInputVal(+inputVal - 1);
-                          }}
-                        >
-                          <Minus strokeWidth={3} />
-                        </button>
-                        <p>
-                          <input
-                            type="number"
-                            className="rounded border-2 border-gray-800 text-center font-sans font-semibold outline-0"
-                            name={val}
-                            id={index}
-                            value={inputVal}
-                            onChange={checkLength}
-                            max={val}
-                            placeholder="Quantity"
-                          />
-                        </p>
-                        <button
-                          className="p-3! focus:outline-0"
-                          onClick={() => {
-                            +inputVal + 1 <= val &&
-                              +inputVal >= -1 &&
-                              setInputVal(+inputVal + 1);
-                          }}
-                        >
-                          <Plus strokeWidth={3} />
-                        </button>
-
-                        <div
-                          onClick={() => setIsHeartFull(!isHeartFull)}
-                          className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
-                        >
-                          <Heart
-                            fill={isHeartFull ? "red" : "var(--hunt-bg)"}
-                            strokeWidth={3}
-                          />
-                        </div>
-                      </div>
-                    ) : val < 1 ? (
-                      <div className="font-pop cursor-not-allowed bg-red-500 p-4 text-base font-bold !text-white">
-                        Out of Stock
-                      </div>
-                    ) : (
-                      <div className="mt-4 flex items-center justify-between gap-4">
-                        <button
-                          className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
-                          onClick={() => setInputVal(1)}
-                        >
-                          <ShoppingBag /> Add To Cart
-                        </button>
-                        <div
-                          onClick={() => setIsHeartFull(!isHeartFull)}
-                          className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
-                        >
-                          <Heart
-                            fill={isHeartFull ? "red" : "var(--hunt-bg)"}
-                            strokeWidth={3}
-                          />
-                        </div>
-                      </div>
-                    )}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center justify-center">
+                <p className="font-pop! p-1 text-4xl font-semibold text-gray-700">
+                  $
+                </p>
+                {detailsObj.discountPercentage > 0 ? (
+                  <div className="flex items-center justify-center">
+                    <p className="text-3xl font-light line-through">
+                      {detailsObj.price}
+                    </p>
+                    <p className="font-pop! p-4 pl-1 text-4xl font-semibold text-gray-700">
+                      {(
+                        detailsObj.price -
+                        (detailsObj.discountPercentage / 100) * detailsObj.price
+                      ).toFixed(2)}
+                    </p>
                   </div>
-                </div>
-              ))}
+                ) : (
+                  detailsObj.price
+                )}
+              </div>
+              <StaticRatings ratings={Math.floor(detailsObj.rating)} />
+            </div>
+            <p className="text-justify">{detailsObj.description}</p>
+            <div>
+              <label
+                className={cn("p-4", {
+                  "text-red-600": detailsObj.stock < 1,
+                })}
+              >
+                <b>{detailsObj.stock}</b> items in stock.
+              </label>
+              <div className="mt-4 grid grid-cols-subgrid items-center">
+                {inputVal > 0 && detailsObj.stock > 0 ? (
+                  <div className="flex flex-1 items-center justify-between gap-2">
+                    <button
+                      className="p-3! focus:border-0"
+                      onClick={() => {
+                        +inputVal >= 1 && setInputVal(+inputVal - 1);
+                      }}
+                    >
+                      <Minus strokeWidth={3} />
+                    </button>
+                    <p>
+                      <input
+                        type="number"
+                        className="rounded border-2 border-gray-800 text-center font-sans font-semibold outline-0"
+                        value={inputVal}
+                        onChange={checkLength}
+                        max={detailsObj.stock}
+                        placeholder="Quantity"
+                      />
+                    </p>
+                    <button
+                      className="p-3! focus:outline-0"
+                      onClick={() => {
+                        +inputVal + 1 <= detailsObj.stock &&
+                          setInputVal(+inputVal + 1);
+                      }}
+                    >
+                      <Plus strokeWidth={3} />
+                    </button>
+                    <div
+                      onClick={() => setIsHeartFull(!isHeartFull)}
+                      className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
+                    >
+                      <Heart
+                        fill={isHeartFull ? "red" : "var(--hunt-bg)"}
+                        strokeWidth={3}
+                      />
+                    </div>
+                  </div>
+                ) : detailsObj.stock < 1 ? (
+                  <div className="font-pop cursor-not-allowed bg-red-500 p-4 text-base font-bold !text-white">
+                    Out of Stock
+                  </div>
+                ) : (
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <button
+                      className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
+                      onClick={() => setInputVal(1)}
+                    >
+                      <ShoppingBag /> Add To Cart
+                    </button>
+                    <div
+                      onClick={() => setIsHeartFull(!isHeartFull)}
+                      className="cursor-pointer rounded bg-gray-300 p-3 transition-colors duration-300 ease-in hover:bg-(--hunt-primary)"
+                    >
+                      <Heart
+                        fill={isHeartFull ? "red" : "var(--hunt-bg)"}
+                        strokeWidth={3}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="col-span-2 w-full bg-gray-100">
@@ -289,7 +255,7 @@ export default function Item() {
                 Reviews
               </Link>
             </div>
-            <Outlet context={{ detailsObj, reviewsObj }} />
+            <Outlet context={{ detailsObj, reviewsObj: detailsObj.reviews }} />
           </div>
         </div>
       </div>
