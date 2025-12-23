@@ -8,7 +8,7 @@ import { cn } from "@/utils/utils";
 import { useLocation } from "react-router";
 
 export default function Item() {
-  const [inputVal, setInputVal] = useState(1);
+  const [inputVal, setInputVal] = useState(0);
   const [currentThumbnail, setCurrentThumbnail] = useState(0);
   const location = useLocation();
 
@@ -183,12 +183,15 @@ export default function Item() {
             <div>
               {filterFunction("stock").map((val, index) => (
                 <div key={index}>
-                  <label className="p-4" htmlFor={index}>
+                  <label
+                    className={cn("p-4", { "text-red-600": val < 1 })}
+                    htmlFor={index}
+                  >
                     <b>{val}</b> items in stock.
                   </label>
 
                   <div className="mt-4 grid grid-cols-subgrid items-center">
-                    {inputVal > 0 ? (
+                    {inputVal > 0 && val > 0 ? (
                       <div className="flex flex-1 items-center justify-between gap-2">
                         <button
                           className="p-3! focus:border-0"
@@ -230,6 +233,10 @@ export default function Item() {
                             strokeWidth={3}
                           />
                         </div>
+                      </div>
+                    ) : val < 1 ? (
+                      <div className="font-pop cursor-not-allowed bg-red-500 p-4 text-base font-bold !text-white">
+                        Out of Stock
                       </div>
                     ) : (
                       <div className="mt-4 flex items-center justify-between gap-4">
