@@ -28,7 +28,7 @@ export default function Welcome() {
           {/* Left Content */}
           <div className={`${styles["animate-fadeInUp"]} space-y-6 text-white`}>
             <div className="flex items-center gap-2 font-semibold text-purple-400">
-              <img src="/favicons/favicon.svg" className="w-8" />
+              <img src="/favicons/favicon-dark.svg" className="w-8" />
               <span>Welcome to HuntMart</span>
             </div>
             <h1 className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-5xl leading-tight font-bold text-transparent md:text-6xl">
