@@ -196,7 +196,7 @@ export default function PrimarySearchAppBar() {
             {theme === "light" ? <Sun /> : <Moon />}
           </IconButton>
           <IconButton size="large" color="inherit">
-            <Link to="/cart">
+            <Link to="cart">
               <ShoppingCart />
             </Link>
           </IconButton>

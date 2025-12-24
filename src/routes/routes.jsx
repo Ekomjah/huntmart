@@ -5,32 +5,45 @@ import Reviews from "@/features/firebase-fetch/reviews/Reviews.jsx";
 import Details from "@/features/firebase-fetch/details/Details.jsx";
 import SearchResultsPage from "@/features/searchWithAlgolia/algoliaSearch.jsx";
 import { Cart } from "@/features/cart/Cart.jsx";
+import AppLayout from "@/layout/Layout.jsx";
+import Welcome from "@/Landing/Welcome";
 
 const routes = [
   {
     path: "/",
-    element: <App />,
+    element: <Welcome />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "search",
-    element: <SearchResultsPage />,
-  },
-  {
-    path: "cart",
-    element: <Cart />,
-  },
-  {
-    path: "products/:id",
-    element: <Item />,
+    path: "/shop",
+    element: <AppLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        element: <Details />,
+        element: <App />,
       },
       {
-        path: "reviews",
-        element: <Reviews />,
+        path: "cart",
+        element: <Cart />,
+      },
+      {
+        path: "search",
+        element: <SearchResultsPage />,
+      },
+      {
+        path: "products/:id",
+        element: <Item />,
+        children: [
+          {
+            index: true,
+            element: <Details />,
+          },
+          {
+            path: "reviews",
+            element: <Reviews />,
+          },
+        ],
       },
     ],
   },

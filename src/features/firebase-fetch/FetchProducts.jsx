@@ -33,11 +33,11 @@ export default function ProductList() {
   }
 
   return (
-    <div className="mx-auto p-4 grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3">
+    <div className="mx-auto grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3 p-4">
       {Object.entries(products).map(([id, product]) => (
         <Link
           key={id}
-          to={`/products/${id}`}
+          to={`products/${id}`}
           className="flex h-full flex-col items-center justify-center rounded bg-(--hunt-surface) p-4 transition-transform duration-150 ease-in hover:scale-[1.01]"
         >
           <h2>{product.title}</h2>

@@ -1,7 +1,6 @@
 import "./App.css";
 import { useEffect } from "react";
 import CarouselApp from "../components/carousel/Carousel";
-import PrimaryAppBar from "../components/AppBar/Appbar";
 import ProductList from "../features/firebase-fetch/FetchProducts";
 import { update } from "../hooks/updateFavicon";
 import Footer from "../components/footer/Footer";
@@ -18,7 +17,6 @@ export default function App() {
   }, []);
   return (
     <>
-      <PrimaryAppBar />
       <div className="relative mt-[65px]">
         <CarouselApp />
         <div className="absolute top-1/2 z-60 -translate-y-1/2 rounded-r-full bg-(--hunt-bg-alpha) p-4 pr-6 text-(--hunt-primary) transition duration-1000 ease-in">
@@ -48,7 +46,7 @@ export default function App() {
         </h1>
       </div>
       <div>
-        <h2 className="mt-10 mb-5 text-center text-base! font-semibold text-gray-700 sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2 className="m-5 text-center text-lg! font-semibold text-gray-700 sm:text-3xl md:text-4xl lg:text-5xl">
           Shop by various categories
         </h2>
       </div>
