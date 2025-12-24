@@ -4,7 +4,7 @@ export default function ProductList() {
   const { data: products, isLoading, isError, refetch } = useFetch();
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 px-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array(8)
           .fill(0)
           .map((_, i) => (
@@ -32,15 +32,8 @@ export default function ProductList() {
     );
   }
 
-  const entries = Object.entries(products).map(
-    ([, products]) => products.category,
-  );
-  const myArr = [...new Set(entries)];
   return (
-    <div className="mx-auto grid max-w-[1300px] grid-cols-4 items-center justify-center gap-3">
-      {myArr.map((el) => {
-        return <div className="text-black">{el}</div>;
-      })}
+    <div className="mx-auto p-4 grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3">
       {Object.entries(products).map(([id, product]) => (
         <Link
           key={id}

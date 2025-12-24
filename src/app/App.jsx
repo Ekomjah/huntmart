@@ -43,12 +43,12 @@ export default function App() {
         </div>
       </div>
       <div style={{ padding: "1rem" }}>
-        <h1 className="font-pop text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
+        <h1 className="font-pop text-4xl! font-bold text-gray-800 sm:text-2xl! md:text-5xl! lg:text-6xl!">
           Hunt Without Limits!
         </h1>
       </div>
       <div>
-        <h2 className="mt-10 mb-5 text-center text-2xl font-semibold text-gray-700 sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2 className="mt-10 mb-5 text-center text-base! font-semibold text-gray-700 sm:text-3xl md:text-4xl lg:text-5xl">
           Shop by various categories
         </h2>
       </div>

@@ -216,7 +216,7 @@ export default function Item() {
                     </div>
                   </div>
                 ) : detailsObj.stock < 1 ? (
-                  <div className="font-pop cursor-not-allowed bg-red-500 p-4 text-base font-bold !text-white">
+                  <div className="font-pop cursor-not-allowed bg-red-500 p-4 text-base font-bold text-white!">
                     Out of Stock
                   </div>
                 ) : (
