@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -184,16 +185,7 @@ export default function PrimarySearchAppBar() {
           <Box
             sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
           />
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search> */}
-          <CustomSearchBox/>
+          <CustomSearchBox />
           <Box sx={{ flexGrow: 1 }} />
           <IconButton
             size="large"
@@ -204,7 +196,9 @@ export default function PrimarySearchAppBar() {
             {theme === "light" ? <Sun /> : <Moon />}
           </IconButton>
           <IconButton size="large" color="inherit">
-            <ShoppingCart />
+            <Link to="/cart">
+              <ShoppingCart />
+            </Link>
           </IconButton>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {" "}

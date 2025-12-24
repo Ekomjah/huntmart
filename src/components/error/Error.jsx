@@ -13,11 +13,13 @@ export default function ErrorPage() {
           alt="error img"
           className="h-screen w-full object-cover object-center"
         />
-        <div className="broken absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg p-6">
-          <h1 className="font-mono text-8xl!">{error.status}!</h1>
-          <h1 className="font-pop text-xl font-semibold">
-            You hit the wrong webpage.
+        <div className="broken absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 justify-between gap-8 rounded-lg p-6">
+          <h1 className="font-pop text-5xl! font-bold lg:text-8xl!">
+            {error.status}!
           </h1>
+          <h2 className="font-pop text-2xl! font-semibold">
+            You hit the wrong webpage.
+          </h2>
           <Link
             to="/"
             className="mt-4 flex justify-center gap-4 rounded bg-(--hunt-primary) p-4 text-white! hover:opacity-90"

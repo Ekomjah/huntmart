@@ -1,10 +1,10 @@
 import "./App.css";
 import { useEffect } from "react";
-import CarouselApp from "../components/carousel/carousel";
-import PrimaryAppBar from "../components/AppBar/appBar";
+import CarouselApp from "../components/carousel/Carousel";
+import PrimaryAppBar from "../components/AppBar/Appbar";
 import ProductList from "../features/firebase-fetch/FetchProducts";
 import { update } from "../hooks/updateFavicon";
-import Footer from "../components/footer/footer";
+import Footer from "../components/footer/Footer";
 import CategoryCarousel from "../features/category-carousel/Carousel";
 
 // TODO: ADD A RELATED PRODUCTS TAB TO DISPLAY PRODUCTS IN THE SAME CATEGORY IN THE ITEMS PAGE :D

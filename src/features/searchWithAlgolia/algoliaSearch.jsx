@@ -11,7 +11,7 @@ import {
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { useSearchParams } from "react-router";
 import { useEffect } from "react";
-import PrimarySearchAppBar from "../../components/AppBar/appBar";
+import PrimarySearchAppBar from "../../components/AppBar/Appbar";
 import { Link } from "react-router";
 
 // --- Algolia client ---

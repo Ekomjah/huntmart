@@ -16,7 +16,7 @@ export default function Footer() {
   }
 
   const entries = Object.entries(products).map(
-    ([_id, products]) => products.category,
+    ([, products]) => products.category,
   );
   const myArr = [...new Set(entries)];
   return (

@@ -1,5 +1,5 @@
 import App from "@/app/App.jsx";
-import ErrorPage from "@/components/error/error.jsx";
+import ErrorPage from "@/components/error/Error.jsx";
 import Item from "@/features/firebase-fetch/GetItem.jsx";
 import Reviews from "@/features/firebase-fetch/reviews/Reviews.jsx";
 import Details from "@/features/firebase-fetch/details/Details.jsx";
