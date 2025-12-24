@@ -84,6 +84,20 @@ h1 {
   font-weight: 700;
 }
 
+.cta {
+  background: linear-gradient(135deg, #ff6b35, #ff8a5b);
+  transition:
+    background-position 200ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.cta:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.35);
+}
+
 /* a {
   color: var(--hunt-link);
   text-decoration: none;
