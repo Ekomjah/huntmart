@@ -17,10 +17,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useThemeContext } from "../../context/useThemeContext";
+import { useThemeContext } from "@/context/useThemeContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { useCartStore } from "@/stores/useCartStore";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,6 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const { getTotalQuantityOfItemsInCart } = useCartStore();
   const { theme, setTheme } = useThemeContext();
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -198,11 +200,13 @@ export default function PrimarySearchAppBar() {
           >
             {theme === "light" ? <Sun /> : <Moon />}
           </IconButton>
-          <IconButton size="large" color="inherit">
-            <Link to="/shop/cart">
-              <ShoppingCart />
-            </Link>
-          </IconButton>
+          <Link to="/shop/cart">
+            <IconButton size="large" color="inherit">
+              <Badge badgeContent={getTotalQuantityOfItemsInCart()} color="error">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </Link>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {" "}
             <IconButton

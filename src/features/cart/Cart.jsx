@@ -1,5 +1,6 @@
 import { useCartStore } from "@/stores/useCartStore";
 import { Minus, Plus, Trash2, ArrowRight, ArrowLeft } from "lucide-react";
+import { Link } from "react-router";
 
 export function Cart() {
   const { cartData, updateCartData, deleteFromCart } = useCartStore();
@@ -8,7 +9,8 @@ export function Cart() {
     <div>
       <div className="mx-auto flex flex-col items-center justify-center bg-gray-50 font-sans text-gray-800">
         {Object.entries(cartData).map(([id, obj]) => (
-          <div
+          <Link
+            to={`/shop/products/${id}`}
             key={id}
             className="mb-4 grid grid-cols-3 items-center justify-between gap-4 border-b"
           >
@@ -33,7 +35,7 @@ export function Cart() {
                 <Trash2></Trash2>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="mx-auto mt-8 grid max-w-[1000px] grid-cols-2 items-center justify-center gap-4 px-4">

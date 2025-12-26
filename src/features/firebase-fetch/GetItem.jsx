@@ -10,20 +10,11 @@ import { useLocation } from "react-router";
 
 export default function Item() {
   const { id } = useParams();
-  const { getQuantity, addToCartData, updateCartData } = useCartStore();
-  const [inputVal, setInputVal] = useState(getQuantity(id));
+  const { getQuantity, addToCartData, updateCartData, deleteFromCart } =
+    useCartStore();
   const [currentThumbnail, setCurrentThumbnail] = useState(0);
   const location = useLocation();
-
   const currentTab = location.pathname.includes("reviews");
-
-  function checkLength(e) {
-    const value = e.target.value;
-    const max = e.target.max;
-    if (+value <= +max && +value >= 0) {
-      setInputVal(value);
-    }
-  }
   const { data: item, isLoading, isError } = useItem(id);
   const [activeImg, setActiveImg] = useState(null);
   const [isHeartFull, setIsHeartFull] = useState(false);
@@ -68,7 +59,22 @@ export default function Item() {
       description: filterFunction("description")[0],
     };
 
-    console.log(detailsObj.images);
+    function checkLength(e) {
+      const value = parseInt(e.target.value, 10);
+      const max = parseInt(e.target.max, 10);
+      if (!isNaN(value) && value >= 0 && value <= max) {
+        updateCartData({
+          id: detailsObj.id,
+          quantity: value,
+        });
+      } else if (value > max) {
+        updateCartData({
+          id: detailsObj.id,
+          quantity: max,
+        });
+      }
+    }
+
     return (
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div
@@ -161,17 +167,17 @@ export default function Item() {
                 <b>{detailsObj.stock}</b> items in stock.
               </label>
               <div className="mt-4 grid grid-cols-subgrid items-center">
-                {inputVal > 0 && detailsObj.stock > 0 ? (
+                {getQuantity(detailsObj.id) > 0 && detailsObj.stock > 0 ? (
                   <div className="flex flex-1 items-center justify-between gap-2">
                     <button
                       className="p-3! focus:border-0"
                       onClick={() => {
-                        +inputVal >= 1 && setInputVal(+inputVal - 1);
-                        inputVal > 0 &&
-                          updateCartData({
-                            id: detailsObj.id,
-                            quantity: inputVal - 1,
-                          });
+                        getQuantity(detailsObj.id) > 0
+                          ? updateCartData({
+                              id: detailsObj.id,
+                              quantity: getQuantity(detailsObj.id) - 1,
+                            })
+                          : deleteFromCart(detailsObj.id);
                       }}
                     >
                       <Minus strokeWidth={3} />
@@ -180,7 +186,7 @@ export default function Item() {
                       <input
                         type="number"
                         className="rounded border-2 border-gray-800 text-center font-sans font-semibold outline-0"
-                        value={inputVal}
+                        value={getQuantity(detailsObj.id)}
                         onChange={checkLength}
                         max={detailsObj.stock}
                         placeholder="Quantity"
@@ -189,13 +195,15 @@ export default function Item() {
                     <button
                       className="p-3! focus:outline-0"
                       onClick={() => {
-                        +inputVal + 1 <= detailsObj.stock &&
-                          setInputVal(+inputVal + 1);
-                        inputVal <= detailsObj.stock &&
+                        if (
+                          getQuantity(detailsObj.id) + 1 <=
+                          detailsObj.stock
+                        ) {
                           updateCartData({
                             id: detailsObj.id,
-                            quantity: inputVal + 1,
+                            quantity: getQuantity(detailsObj.id) + 1,
                           });
+                        }
                       }}
                     >
                       <Plus strokeWidth={3} />
@@ -219,16 +227,15 @@ export default function Item() {
                     <button
                       className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
                       onClick={() => {
-                        setInputVal(1);
                         addToCartData({
                           id: detailsObj.id,
                           title: detailsObj.title,
                           price: detailsObj.price,
                           image: detailsObj.images[0],
                           quantity:
-                            inputVal + 1 > detailsObj.stock
+                            getQuantity(detailsObj.id) + 1 > detailsObj.stock
                               ? detailsObj.stock
-                              : inputVal + 1,
+                              : getQuantity(detailsObj.id) + 1,
                         });
                       }}
                     >

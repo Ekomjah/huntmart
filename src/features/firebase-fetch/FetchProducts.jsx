@@ -37,7 +37,7 @@ export default function ProductList() {
       {Object.entries(products).map(([id, product]) => (
         <Link
           key={id}
-          to={`products/${id}`}
+          to={`/shop/products/${id}`}
           className="group flex flex-col items-center justify-center rounded bg-(--hunt-surface) p-4"
         >
           <h2>{product.title}</h2>
