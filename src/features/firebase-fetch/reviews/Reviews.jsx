@@ -18,7 +18,6 @@ export default function Reviews() {
               </div>
               <StaticRatings ratings={rating} />
             </div>
-            <div className="text-left">{comment}</div>
             <div className="text-left text-gray-400">
               &lt;
               <span className="text-sm font-normal text-gray-500">
@@ -26,6 +25,7 @@ export default function Reviews() {
               </span>
               &gt;
             </div>
+            <div className="text-left">{comment}</div>
           </div>
         ),
       )}

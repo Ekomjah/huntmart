@@ -1,23 +1,15 @@
 import "./App.css";
-import { useEffect } from "react";
 import CarouselApp from "../components/carousel/Carousel";
 import ProductList from "../features/firebase-fetch/FetchProducts";
-import { update } from "../hooks/updateFavicon";
 import Footer from "../components/footer/Footer";
 import CategoryCarousel from "../features/category-carousel/Carousel";
 
 // TODO: ADD A RELATED PRODUCTS TAB TO DISPLAY PRODUCTS IN THE SAME CATEGORY IN THE ITEMS PAGE :D
 
 export default function App() {
-  useEffect(() => {
-    update();
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", update);
-  }, []);
   return (
     <>
-      <div className="relative mt-[65px]">
+      <div className="relative">
         <CarouselApp />
         <div className="absolute top-1/2 z-60 -translate-y-1/2 rounded-r-full bg-(--hunt-bg-alpha) p-4 pr-6 text-(--hunt-primary) transition duration-1000 ease-in">
           <div className="absolute inset-0 rounded-r-full bg-black/50"></div>
@@ -41,12 +33,12 @@ export default function App() {
         </div>
       </div>
       <div style={{ padding: "1rem" }}>
-        <h1 className="font-pop text-4xl! font-bold text-gray-800 sm:text-2xl! md:text-5xl! lg:text-6xl!">
+        <h1 className="font-pop text-4xl! font-bold text-[#777] sm:text-2xl! md:text-5xl! lg:text-6xl!">
           Hunt Without Limits!
         </h1>
       </div>
       <div>
-        <h2 className="m-5 text-center text-lg! font-semibold text-gray-700 sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2 className="m-5 text-center text-lg! font-semibold text-[#777] sm:text-3xl md:text-4xl lg:text-5xl">
           Shop by various categories
         </h2>
       </div>

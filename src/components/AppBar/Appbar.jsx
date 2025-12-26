@@ -17,7 +17,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useThemeContext } from "../../context/context";
+import { useThemeContext } from "../../context/useThemeContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -163,7 +163,10 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "#242424" }}>
+      <AppBar
+        position="fixed"
+        sx={{ backgroundColor: theme === "light" ? "#e65621" : "#8b3718" }}
+      >
         <Toolbar>
           <IconButton
             size="large"
@@ -180,7 +183,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            HuntMart
+            <Link to="/shop">HuntMart</Link>
           </Typography>
           <Box
             sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
@@ -196,7 +199,7 @@ export default function PrimarySearchAppBar() {
             {theme === "light" ? <Sun /> : <Moon />}
           </IconButton>
           <IconButton size="large" color="inherit">
-            <Link to="cart">
+            <Link to="/shop/cart">
               <ShoppingCart />
             </Link>
           </IconButton>
@@ -263,7 +266,7 @@ export function CustomSearchBox() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query)}`);
+      navigate(`/shop/search?q=${encodeURIComponent(query)}`);
     }
   };
 

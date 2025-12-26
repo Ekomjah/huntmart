@@ -9,7 +9,9 @@ import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from "react-router";
 
 export default function Item() {
-  const [inputVal, setInputVal] = useState(0);
+  const { id } = useParams();
+  const { getQuantity, addToCartData, updateCartData } = useCartStore();
+  const [inputVal, setInputVal] = useState(getQuantity(id));
   const [currentThumbnail, setCurrentThumbnail] = useState(0);
   const location = useLocation();
 
@@ -22,7 +24,6 @@ export default function Item() {
       setInputVal(value);
     }
   }
-  const { id } = useParams();
   const { data: item, isLoading, isError } = useItem(id);
   const [activeImg, setActiveImg] = useState(null);
   const [isHeartFull, setIsHeartFull] = useState(false);
@@ -31,8 +32,6 @@ export default function Item() {
       .filter(([k]) => k === key)
       .map(([, val]) => val);
   };
-
-  const { addToCartData } = useCartStore();
 
   if (isLoading)
     return (
@@ -168,13 +167,11 @@ export default function Item() {
                       className="p-3! focus:border-0"
                       onClick={() => {
                         +inputVal >= 1 && setInputVal(+inputVal - 1);
-                        addToCartData({
-                          id: detailsObj.id,
-                          title: detailsObj.title,
-                          price: detailsObj.price,
-                          image: detailsObj.images[0],
-                          quantity: inputVal + 1,
-                        });
+                        inputVal > 0 &&
+                          updateCartData({
+                            id: detailsObj.id,
+                            quantity: inputVal - 1,
+                          });
                       }}
                     >
                       <Minus strokeWidth={3} />
@@ -194,13 +191,11 @@ export default function Item() {
                       onClick={() => {
                         +inputVal + 1 <= detailsObj.stock &&
                           setInputVal(+inputVal + 1);
-                        addToCartData({
-                          id: detailsObj.id,
-                          title: detailsObj.title,
-                          price: detailsObj.price,
-                          image: detailsObj.images[0],
-                          quantity: inputVal + 1,
-                        });
+                        inputVal <= detailsObj.stock &&
+                          updateCartData({
+                            id: detailsObj.id,
+                            quantity: inputVal + 1,
+                          });
                       }}
                     >
                       <Plus strokeWidth={3} />
@@ -256,7 +251,7 @@ export default function Item() {
           <div className="col-span-2 w-full bg-gray-100">
             <div className="mt-4 ml-5 flex items-center justify-start gap-4 border-b-2 border-gray-300 pb-2">
               <Link
-                to={`/products/${id}`}
+                to={`/shop/products/${id}`}
                 className={cn(
                   "font-pop text-bg-500 rounded-full p-2 font-semibold transition-colors duration-300 ease-in",
                   {
@@ -268,7 +263,7 @@ export default function Item() {
                 Details
               </Link>
               <Link
-                to={`/products/${id}/reviews`}
+                to={`/shop/products/${id}/reviews`}
                 className={cn(
                   "font-pop text-bg-500 rounded-full p-2 font-semibold transition",
                   {

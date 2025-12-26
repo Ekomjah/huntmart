@@ -38,13 +38,15 @@ export default function ProductList() {
         <Link
           key={id}
           to={`products/${id}`}
-          className="flex h-full flex-col items-center justify-center rounded bg-(--hunt-surface) p-4 transition-transform duration-150 ease-in hover:scale-[1.01]"
+          className="group flex flex-col items-center justify-center rounded bg-(--hunt-surface) p-4"
         >
           <h2>{product.title}</h2>
-          <img
-            src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
-            className="h-full w-full"
-          />
+          <div className="h-48 w-48 overflow-hidden rounded">
+            <img
+              src={`https://res.cloudinary.com/ekomjah/image/fetch/w_200,h_200,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
+              className="h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-110"
+            />
+          </div>
           <p>{product.price}</p>
         </Link>
       ))}

@@ -22,7 +22,7 @@ export default function Footer() {
   return (
     <div className="mx-auto grid max-w-[1300px] grid-cols-4 items-center justify-center gap-3">
       {myArr.map((el) => {
-        return <div className="text-black">{el}</div>;
+        return <div>{el}</div>;
       })}
     </div>
   );

@@ -23,7 +23,6 @@ export default function Welcome() {
             className={`${styles["animate-blob"]} ${styles["animation-delay-4000"]} absolute top-1/2 left-1/2 h-80 w-80 rounded-full bg-pink-500 opacity-20 mix-blend-multiply blur-3xl filter`}
           ></div>
         </div>
-
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 md:grid-cols-2">
           {/* Left Content */}
           <div className={`${styles["animate-fadeInUp"]} space-y-6 text-white`}>
