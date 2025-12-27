@@ -29,14 +29,13 @@ const useCartStore = create((set, get) => ({
       throw new Error(`Item with ID ${id} does not exist in the cart`);
     }
     set((state) => {
-      if (quantity < 1) {
+      if (quantity === 0) {
+        get().deleteFromCart(id);
         const updatedCart = { ...state.cartData };
-        delete updatedCart[id];
-
         localStorage.setItem("cartData", JSON.stringify(updatedCart));
         return { cartData: updatedCart };
       }
-      const clampedQuantity = Math.min(quantity, state.cartData[id].stock);
+      const clampedQuantity = Math.min(+quantity, +state.cartData[id].stock);
       const updatedCartData = {
         ...state.cartData,
         [id]: { ...state.cartData[id], quantity: clampedQuantity },

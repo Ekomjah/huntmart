@@ -232,6 +232,7 @@ export default function Item() {
                           title: detailsObj.title,
                           price: detailsObj.price,
                           image: detailsObj.images[0],
+                          stock: detailsObj.stock,
                           quantity:
                             getQuantity(detailsObj.id) + 1 > detailsObj.stock
                               ? detailsObj.stock
