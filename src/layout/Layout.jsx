@@ -1,16 +1,8 @@
 import { Outlet } from "react-router";
 import PrimarySearchAppBar from "@/components/AppBar/Appbar";
 import Box from "@mui/material/Box";
-import { update } from "@/hooks/updateFavicon";
-import { useEffect } from "react";
 
 export default function AppLayout() {
-  useEffect(() => {
-    update();
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", update);
-  }, []);
   return (
     <>
       <PrimarySearchAppBar />
