@@ -5,6 +5,7 @@ import Reviews from "@/features/firebase-fetch/reviews/Reviews.jsx";
 import Details from "@/features/firebase-fetch/details/Details.jsx";
 import SearchResultsPage from "@/features/searchWithAlgolia/algoliaSearch.jsx";
 import { Cart } from "@/features/cart/Cart.jsx";
+import { Checkout } from "@/features/checkout-page/Checkout";
 import AppLayout from "@/layout/Layout.jsx";
 import Welcome from "@/Landing/Welcome";
 
@@ -30,6 +31,10 @@ const routes = [
       {
         path: "search",
         element: <SearchResultsPage />,
+      },
+      {
+        path: "checkout",
+        element: <Checkout />,
       },
       {
         path: "products/:id",

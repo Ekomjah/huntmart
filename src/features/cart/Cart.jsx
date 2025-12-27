@@ -8,6 +8,7 @@ export function Cart() {
     updateCartData,
     deleteFromCart,
     getTotalQuantityOfItemsInCart,
+    clearCart,
   } = useCartStore();
   if (getTotalQuantityOfItemsInCart() === 0) {
     return (
@@ -67,18 +68,25 @@ export function Cart() {
         ))}
       </div>
       <div className="mx-auto mt-8 grid max-w-[1000px] grid-cols-2 items-center justify-center gap-4 px-4">
-        <div className="group flex items-center justify-center gap-8 rounded bg-(--hunt-primary-deep) p-4 font-semibold text-(--hunt-text) hover:bg-gray-400">
+        <Link
+          to="/shop"
+          className="group flex items-center justify-center gap-8 rounded bg-(--hunt-primary-deep) p-4 font-semibold text-(--hunt-text) hover:bg-gray-400"
+        >
           <span className="ease mr-2 inline-block transition-transform group-hover:-translate-x-1">
             <ArrowLeft size={16} />
           </span>
           Back to shopping
-        </div>
-        <div className="group flex items-center justify-center gap-8 rounded bg-(--hunt-primary-deep) p-4 font-semibold text-(--hunt-text) hover:bg-gray-400">
+        </Link>
+        <Link
+          to="/shop/checkout"
+          onClick={clearCart}
+          className="group flex items-center justify-center gap-8 rounded bg-(--hunt-primary-deep) p-4 font-semibold text-(--hunt-text) hover:bg-gray-400"
+        >
           Checkout
           <span className="ease ml-2 inline-block transition-transform group-hover:translate-x-1">
             <ArrowRight size={16} />
           </span>
-        </div>
+        </Link>
       </div>
     </div>
   );

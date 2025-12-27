@@ -53,6 +53,14 @@ const useCartStore = create((set, get) => ({
     const updatedCartData = get().cartData;
     localStorage.setItem("cartData", JSON.stringify(updatedCartData));
   },
+  clearCart: () => {
+    set((state) => {
+      console.log("Deleting all items in cart");
+      const updatedCartData = { cartData: {} };
+      localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+      return updatedCartData;
+    });
+  },
   getTotalQuantityOfItemsInCart: () => {
     const cartData = get().cartData;
     const totalQuantity = Object.values(cartData).reduce(
