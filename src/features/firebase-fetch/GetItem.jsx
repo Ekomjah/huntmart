@@ -63,15 +63,9 @@ export default function Item() {
       const value = parseInt(e.target.value, 10);
       const max = parseInt(e.target.max, 10);
       if (!isNaN(value) && value >= 0 && value <= max) {
-        updateCartData({
-          id: detailsObj.id,
-          quantity: value,
-        });
+        updateCartData(detailsObj.id, value);
       } else if (value > max) {
-        updateCartData({
-          id: detailsObj.id,
-          quantity: max,
-        });
+        updateCartData(detailsObj.id, max);
       }
     }
 
@@ -173,10 +167,10 @@ export default function Item() {
                       className="p-3! focus:border-0"
                       onClick={() => {
                         getQuantity(detailsObj.id) > 0
-                          ? updateCartData({
-                              id: detailsObj.id,
-                              quantity: getQuantity(detailsObj.id) - 1,
-                            })
+                          ? updateCartData(
+                              detailsObj.id,
+                              getQuantity(detailsObj.id) - 1,
+                            )
                           : deleteFromCart(detailsObj.id);
                       }}
                     >
@@ -195,15 +189,19 @@ export default function Item() {
                     <button
                       className="p-3! focus:outline-0"
                       onClick={() => {
-                        if (
-                          getQuantity(detailsObj.id) + 1 <=
-                          detailsObj.stock
-                        ) {
-                          updateCartData({
-                            id: detailsObj.id,
-                            quantity: getQuantity(detailsObj.id) + 1,
-                          });
-                        }
+                        console.log(
+                          "increasing quantity in cart",
+                          +getQuantity(detailsObj.id) + 1,
+                        );
+                        console.log(
+                          "previous quantity",
+                          +getQuantity(detailsObj.id),
+                        );
+
+                        updateCartData(
+                          detailsObj.id,
+                          +getQuantity(detailsObj.id) + 1,
+                        );
                       }}
                     >
                       <Plus strokeWidth={3} />

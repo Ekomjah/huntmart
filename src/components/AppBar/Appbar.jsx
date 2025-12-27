@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
-import { Sun, ShoppingCart, Moon } from "lucide-react";
+import { ShoppingCart, ArrowLeft } from "lucide-react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -18,7 +17,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { useState } from "react";
 import { useCartStore } from "@/stores/useCartStore";
 
@@ -60,6 +59,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleGoBack = () => navigate(-1);
+  const isCurrentPathRelative = location.pathname === "/shop";
   const { getTotalQuantityOfItemsInCart } = useCartStore();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -160,10 +163,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="fixed"
-        sx={{ backgroundColor: "#e65621"}}
-      >
+      <AppBar position="fixed" sx={{ backgroundColor: "#e65621" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -172,7 +172,11 @@ export default function PrimarySearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {isCurrentPathRelative ? (
+              <MenuIcon />
+            ) : (
+              <ArrowLeft onClick={handleGoBack} />
+            )}
           </IconButton>
           <Typography
             variant="h6"
@@ -189,7 +193,10 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Link to="/shop/cart">
             <IconButton size="large" color="inherit">
-              <Badge badgeContent={getTotalQuantityOfItemsInCart()} color="error">
+              <Badge
+                badgeContent={getTotalQuantityOfItemsInCart()}
+                color="error"
+              >
                 <ShoppingCart />
               </Badge>
             </IconButton>

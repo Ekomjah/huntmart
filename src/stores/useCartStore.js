@@ -20,14 +20,15 @@ const useCartStore = create((set, get) => ({
     localStorage.setItem("cartData", JSON.stringify(updatedCartData));
   },
   updateCartData: (id, quantity) => {
-    if (typeof quantity !== "number" || quantity < 0) {
+    console.log("updateQuantity called with", { id, quantity });
+    if (typeof +quantity !== "number" || quantity < 0) {
       throw new Error(
         "Invalid quantity: Quantity must be a non-negative number",
       );
     }
-    if (!get().cartData[id]) {
-      throw new Error(`Item with ID ${id} does not exist in the cart`);
-    }
+    // if (!get().cartData[id]) {
+    //   throw new Error(`Item with ID ${id} does not exist in the cart`);
+    // }
     set((state) => {
       if (quantity === 0) {
         get().deleteFromCart(id);
@@ -35,6 +36,11 @@ const useCartStore = create((set, get) => ({
         localStorage.setItem("cartData", JSON.stringify(updatedCart));
         return { cartData: updatedCart };
       }
+      console.log(
+        "Items required to calculate clampQuantity",
+        +quantity,
+        +state.cartData[id].stock,
+      );
       const clampedQuantity = Math.min(+quantity, +state.cartData[id].stock);
       const updatedCartData = {
         ...state.cartData,
