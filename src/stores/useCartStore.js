@@ -26,15 +26,16 @@ const useCartStore = create((set, get) => ({
         "Invalid quantity: Quantity must be a non-negative number",
       );
     }
-    // if (!get().cartData[id]) {
-    //   throw new Error(`Item with ID ${id} does not exist in the cart`);
-    // }
+    if (!get().cartData[id]) {
+      throw new Error(`Item with ID ${id} does not exist in the cart`);
+    }
     set((state) => {
       if (quantity === 0) {
-        get().deleteFromCart(id);
-        const updatedCart = { ...state.cartData };
-        localStorage.setItem("cartData", JSON.stringify(updatedCart));
-        return { cartData: updatedCart };
+        console.log("deleting, ... ");
+        const shallowCopyOfCartData = { ...state.cartData };
+        delete shallowCopyOfCartData[id];
+        localStorage.setItem("cartData", JSON.stringify(shallowCopyOfCartData));
+        return { cartData: shallowCopyOfCartData };
       }
       console.log(
         "Items required to calculate clampQuantity",
@@ -51,6 +52,7 @@ const useCartStore = create((set, get) => ({
     });
   },
   deleteFromCart: (id) => {
+    console.log("successfully called in update component");
     set((state) => {
       const shallowCopyOfCartData = { ...state.cartData };
       delete shallowCopyOfCartData[id];

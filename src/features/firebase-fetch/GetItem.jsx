@@ -2,13 +2,15 @@ import { ShoppingBag, Plus, Minus, Heart } from "lucide-react";
 import { useParams, Outlet, Link } from "react-router";
 import { useItem } from "@/hooks/useItem";
 import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useState } from "react";
 import StaticRatings from "@/components/ratings/StaticRatings";
 import { cn } from "@/utils/utils";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from "react-router";
-
+import { Toaster, toast } from "sonner";
 export default function Item() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { getQuantity, addToCartData, updateCartData, deleteFromCart } =
     useCartStore();
@@ -69,8 +71,12 @@ export default function Item() {
       }
     }
 
+    const displayName = (name) =>
+      name.length > 15 ? `${name.slice(0, 15)}...` : name;
     return (
       <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
+        <Toaster richColors position="top-center" duration={3000} />
+
         <div
           className={cn(
             "flex h-full flex-wrap items-stretch justify-center gap-2 rounded bg-gray-100 p-4 md:grid md:grid-cols-2",
@@ -225,6 +231,21 @@ export default function Item() {
                     <button
                       className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
                       onClick={() => {
+                        toast.success(
+                          `${displayName(detailsObj.title)} added to cart`,
+                          {
+                            action: (
+                              <button
+                              className="cta p-4"
+                                onClick={() => {
+                                  navigate("/shop/cart");
+                                }}
+                              >
+                                View Cart
+                              </button>
+                            ),
+                          },
+                        );
                         addToCartData({
                           id: detailsObj.id,
                           title: detailsObj.title,
