@@ -11,13 +11,11 @@ import { useSearchParams } from "react-router";
 import PrimarySearchAppBar from "../../components/AppBar/Appbar";
 import { Link } from "react-router";
 
-// --- Algolia client ---
 const searchClient = algoliasearch(
   "3U179XKIHD",
   "9d3d862c275cf9b6b36481e904011040",
 );
 
-// --- Product Hit card ---
 function Hit({ hit }) {
   return (
     <Link

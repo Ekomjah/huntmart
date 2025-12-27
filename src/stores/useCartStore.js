@@ -28,14 +28,22 @@ const useCartStore = create((set, get) => ({
     if (!get().cartData[id]) {
       throw new Error(`Item with ID ${id} does not exist in the cart`);
     }
-    set((state) => ({
-      cartData: {
+    set((state) => {
+      if (quantity < 1) {
+        const updatedCart = { ...state.cartData };
+        delete updatedCart[id];
+
+        localStorage.setItem("cartData", JSON.stringify(updatedCart));
+        return { cartData: updatedCart };
+      }
+      const clampedQuantity = Math.min(quantity, state.cartData[id].stock);
+      const updatedCartData = {
         ...state.cartData,
-        [id]: { ...state.cartData[id], quantity },
-      },
-    }));
-    const updatedCartData = get().cartData;
-    localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+        [id]: { ...state.cartData[id], quantity: clampedQuantity },
+      };
+      localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+      return { cartData: updatedCartData };
+    });
   },
   deleteFromCart: (id) => {
     set((state) => {
@@ -52,7 +60,7 @@ const useCartStore = create((set, get) => ({
       (total, item) => total + (parseInt(item.quantity) ?? 0),
       0,
     );
-    console.log("totalQuantity", totalQuantity);  
+    console.log("totalQuantity", totalQuantity);
     return totalQuantity;
   },
 }));

@@ -17,7 +17,6 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useThemeContext } from "@/context/useThemeContext";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -62,10 +61,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const { getTotalQuantityOfItemsInCart } = useCartStore();
-  const { theme, setTheme } = useThemeContext();
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -167,7 +162,7 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        sx={{ backgroundColor: theme === "light" ? "#e65621" : "#8b3718" }}
+        sx={{ backgroundColor: "#e65621"}}
       >
         <Toolbar>
           <IconButton
@@ -192,14 +187,6 @@ export default function PrimarySearchAppBar() {
           />
           <CustomSearchBox />
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton
-            size="large"
-            outline="0"
-            onClick={toggleTheme}
-            color="inherit"
-          >
-            {theme === "light" ? <Sun /> : <Moon />}
-          </IconButton>
           <Link to="/shop/cart">
             <IconButton size="large" color="inherit">
               <Badge badgeContent={getTotalQuantityOfItemsInCart()} color="error">
