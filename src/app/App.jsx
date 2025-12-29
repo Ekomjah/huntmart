@@ -38,7 +38,8 @@ export default function App() {
         </h1>
       </div>
       <div>
-        <h2 className="font-base mx-auto mb-2 w-[90vw] max-w-7xl text-left font-sans text-xl! text-(--hunt-text)">
+        <h2 className="font-base mx-auto mb-2 w-[90vw] max-w-7xl font-s
+          emibold text-left font-sans text-xl! text-(--hunt-text)">
           Shop by various categories
         </h2>
       </div>
