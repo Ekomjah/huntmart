@@ -49,24 +49,26 @@ export default function ProductList() {
   const brands = getRandomBrands(products);
 
   return (
-    <div className="mx-auto grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3 p-4">
+    <>
       <BrandGrid brands={brands} />
-      {Object.entries(products).map(([id, product]) => (
-        <Link
-          key={id}
-          to={`/shop/products/${id}`}
-          className="group flex flex-col items-center justify-center rounded bg-(--hunt-surface) p-4"
-        >
-          <h2>{product.title}</h2>
-          <div className="h-48 w-48 overflow-hidden rounded">
-            <img
-              src={`https://res.cloudinary.com/ekomjah/image/fetch/w_200,h_200,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
-              className="h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-110"
-            />
-          </div>
-          <p>{product.price}</p>
-        </Link>
-      ))}
-    </div>
+      <div className="mx-auto grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3 p-4">
+        {Object.entries(products).map(([id, product]) => (
+          <Link
+            key={id}
+            to={`/shop/products/${id}`}
+            className="group flex flex-col items-center justify-center rounded bg-(--hunt-surface) p-4"
+          >
+            <h2>{product.title}</h2>
+            <div className="h-48 w-48 overflow-hidden rounded">
+              <img
+                src={`https://res.cloudinary.com/ekomjah/image/fetch/w_200,h_200,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
+                className="h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-110"
+              />
+            </div>
+            <p>{product.price}</p>
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
