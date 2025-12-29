@@ -1,5 +1,6 @@
 import { useFetch } from "../../hooks/useFetch";
 import { Link } from "react-router";
+import BrandGrid from "../hunt-categories/Brand";
 export default function ProductList() {
   const { data: products, isLoading, isError, refetch } = useFetch();
   if (isLoading) {
@@ -32,8 +33,24 @@ export default function ProductList() {
     );
   }
 
+  function getRandomBrands(data, count = 8) {
+    const brands = [
+      ...new Set(Object.values(data).map((product) => product.brand)),
+    ];
+
+    for (let i = brands.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [brands[i], brands[j]] = [brands[j], brands[i]];
+    }
+
+    return brands.slice(0, count);
+  }
+
+  const brands = getRandomBrands(products);
+
   return (
     <div className="mx-auto grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3 p-4">
+      <BrandGrid brands={brands} />
       {Object.entries(products).map(([id, product]) => (
         <Link
           key={id}
