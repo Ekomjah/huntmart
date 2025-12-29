@@ -2,7 +2,7 @@ import "./App.css";
 import CarouselApp from "../components/carousel/Carousel";
 import ProductList from "../features/firebase-fetch/FetchProducts";
 import Footer from "../components/footer/Footer";
-import CategoryCarousel from "../features/category-carousel/Carousel";
+import HuntCategories from "@/features/hunt-categories/Categories";
 
 // TODO: ADD A RELATED PRODUCTS TAB TO DISPLAY PRODUCTS IN THE SAME CATEGORY IN THE ITEMS PAGE :D
 
@@ -33,16 +33,57 @@ export default function App() {
         </div>
       </div>
       <div style={{ padding: "1rem" }}>
-        <h1 className="font-pop text-4xl! font-bold text-[#777] sm:text-2xl! md:text-5xl! lg:text-6xl!">
+        <h1 className="font-pop text-3xl! font-bold text-(--hunt-text) sm:text-2xl! md:text-5xl! lg:text-6xl!">
           Hunt Without Limits!
         </h1>
       </div>
       <div>
-        <h2 className="m-5 text-center text-lg! font-semibold text-[#777] sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2 className="font-base mx-auto mb-2 w-[90vw] max-w-7xl text-left font-sans text-xl! text-(--hunt-text)">
           Shop by various categories
         </h2>
       </div>
-      <CategoryCarousel />
+
+      <div className="mx-auto mb-10 grid w-[90vw] max-w-7xl gap-6 md:grid-cols-4">
+        {[
+          {
+            img: "https://res.cloudinary.com/ekomjah/image/upload/v1766973565/electronics_sbftm7.jpg",
+            title: "Electronics",
+            desc: "Latest tech gadgets",
+          },
+          {
+            img: "https://res.cloudinary.com/ekomjah/image/upload/v1766973563/homedecor_fu1dud.jpg",
+            title: "Home Decor",
+            desc: "Stylish home accents",
+          },
+          {
+            img: "https://res.cloudinary.com/ekomjah/image/upload/v1766973566/fashion_zqyh3c.jpg",
+            title: "Fashion",
+            desc: "Trendy apparel",
+          },
+          {
+            img: "https://res.cloudinary.com/ekomjah/image/upload/v1766973570/groceries_xsbjen.jpg",
+            title: "Groceries",
+            desc: "Tasty food and good fruits for healthy living",
+          },
+          // {
+          //   img: "https://res.cloudinary.com/ekomjah/image/upload/v1766973563/automotive_kp7stt.jpg",
+          //   title: "Automotives",
+          //   desc: "Cars and repairs",
+          // },
+          // {
+          //   img: "https://res.cloudinary.com/ekomjah/image/upload/v1766973564/beauty_xttpun.jpg",
+          //   title: "Beauty and Body Care",
+          //   desc: "Quality skin essentials",
+          // },
+          // {
+          //   img: "https://res.cloudinary.com/ekomjah/image/upload/v1766972847/sports-tools_1_1_bn9rui.jpg",
+          //   title: "Sports",
+          //   desc: "Everything to stay fit",
+          // },
+        ].map((collection) => (
+          <HuntCategories collection={collection} />
+        ))}
+      </div>
       <ProductList />
       <Footer />
     </>
