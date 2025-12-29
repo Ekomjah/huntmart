@@ -1,11 +1,11 @@
 import { useFetch } from "../../hooks/useFetch";
-import { Link } from "react-router";
+import ProductsGrid from "../hunt-categories/ProductGrid";
 import BrandGrid from "../hunt-categories/Brand";
 export default function ProductList() {
   const { data: products, isLoading, isError, refetch } = useFetch();
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 gap-6 px-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="W-[90vw] mx-auto grid max-w-7xl grid-cols-1 gap-6 px-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array(8)
           .fill(0)
           .map((_, i) => (
@@ -33,9 +33,24 @@ export default function ProductList() {
     );
   }
 
-  function getRandomBrands(data, count = 8) {
+  const getRandomProducts = (data, count = 8) => {
+    const products = Object.entries(data);
+    let lengthCounter = products.length - 1;
+    while (lengthCounter > 0) {
+      const newIndex = Math.floor(Math.random() * (lengthCounter + 1));
+      lengthCounter--;
+      [products[lengthCounter], products[newIndex]] = [
+        products[newIndex],
+        products[lengthCounter],
+      ];
+    }
+
+    return products.slice(0, count);
+  };
+
+  function getRandomValues(data, count = 8, randomValue = "brand") {
     const brands = [
-      ...new Set(Object.values(data).map((product) => product.brand)),
+      ...new Set(Object.values(data).map((product) => product[randomValue])),
     ];
 
     for (let i = brands.length - 1; i > 0; i--) {
@@ -46,29 +61,19 @@ export default function ProductList() {
     return brands.slice(0, count);
   }
 
-  const brands = getRandomBrands(products);
+  const brands = getRandomValues(products);
+  console.log(getRandomProducts(products));
 
   return (
     <>
+      <h2 className="font-base mx-auto my-8 w-[90vw] max-w-7xl text-left font-sans text-xl font-semibold text-(--hunt-text) md:text-3xl">
+        Choose by Brand
+      </h2>
       <BrandGrid brands={brands} />
-      <div className="mx-auto grid max-w-[1300px] grid-cols-3 items-center justify-center gap-3 p-4">
-        {Object.entries(products).map(([id, product]) => (
-          <Link
-            key={id}
-            to={`/shop/products/${id}`}
-            className="group flex flex-col items-center justify-center rounded bg-(--hunt-surface) p-4"
-          >
-            <h2>{product.title}</h2>
-            <div className="h-48 w-48 overflow-hidden rounded">
-              <img
-                src={`https://res.cloudinary.com/ekomjah/image/fetch/w_200,h_200,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${product.thumbnail}`}
-                className="h-full w-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-110"
-              />
-            </div>
-            <p>{product.price}</p>
-          </Link>
-        ))}
-      </div>
+      <h2 className="font-base mx-auto my-8 w-[90vw] max-w-7xl text-left font-sans text-xl font-semibold text-(--hunt-text) md:text-3xl!">
+        Today's best deals for you!
+      </h2>
+      <ProductsGrid products={getRandomProducts(products)} />
     </>
   );
 }

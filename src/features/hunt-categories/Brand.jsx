@@ -1,6 +1,6 @@
 export default function BrandGrid({ brands }) {
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div className="mx-auto mb-4 grid w-[90vw] max-w-7xl grid-cols-2 gap-4 md:grid-cols-4">
       {brands.map((brand) => {
         const encodedBrand = encodeURIComponent(brand);
 

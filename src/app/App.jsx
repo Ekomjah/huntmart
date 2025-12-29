@@ -32,18 +32,9 @@ export default function App() {
           </div>
         </div>
       </div>
-      <div style={{ padding: "1rem" }}>
-        <h1 className="font-pop text-3xl! font-bold text-(--hunt-text) sm:text-2xl! md:text-5xl! lg:text-6xl!">
-          Hunt Without Limits!
-        </h1>
-      </div>
-      <div>
-        <h2 className="font-base mx-auto mb-2 w-[90vw] max-w-7xl font-s
-          emibold text-left font-sans text-xl! text-(--hunt-text)">
-          Shop by various categories
-        </h2>
-      </div>
-
+      <h2 className="font-base mx-auto my-8 mt-20 w-[90vw] max-w-7xl text-left font-sans text-xl font-semibold text-(--hunt-text) md:text-3xl">
+        Shop by various categories
+      </h2>
       <div className="mx-auto mb-10 grid w-[90vw] max-w-7xl gap-6 md:grid-cols-4">
         {[
           {

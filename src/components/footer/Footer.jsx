@@ -34,7 +34,10 @@ export default function Footer() {
               <p className="text-sm font-medium text-gray-900">
                 Accepted payments
               </p>
-              <div className="mt-3 flex items-center space-x-3" aria-hidden>
+              <div
+                className="mx-auto mt-3 flex items-center space-x-3"
+                aria-hidden
+              >
                 <span className="flex h-6 w-10 items-center justify-center rounded-sm bg-gray-200 text-xs">
                   <img
                     src="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63eb1ce8816711ebecac46d8_stripe.png"
