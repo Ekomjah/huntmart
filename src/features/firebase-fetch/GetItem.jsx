@@ -83,14 +83,14 @@ export default function Item() {
           )}
         >
           <div className="flex flex-1 flex-col">
-            <div className="mx-auto w-[300px] flex-1 rounded bg-gray-200 shadow-lg">
+            <div className="mx-auto h-64 w-[300px] overflow-hidden rounded bg-gray-200 p-4 shadow-lg">
               <img
                 src={
                   activeImg ||
-                  `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${detailsObj.images[0]}`
+                  `https://res.cloudinary.com/ekomjah/image/fetch/w_300,h_300,c_fit,q_auto,f_auto,e_sharpen,dpr_auto/${detailsObj.images[0]}`
                 }
                 alt="item-thumbnail"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain"
               />
             </div>
             <div className="flex w-full items-center justify-center gap-5">
@@ -99,7 +99,7 @@ export default function Item() {
                   <div key={index} className="mt-4">
                     <div
                       className={cn(
-                        "w-[50px] cursor-pointer rounded ring-1 ring-gray-700",
+                        "h-16 w-[50px] cursor-pointer rounded ring-1 ring-gray-700",
                         {
                           "ring-3": currentThumbnail === index,
                         },
@@ -107,12 +107,12 @@ export default function Item() {
                       onClick={() => {
                         setCurrentThumbnail(index);
                         setActiveImg(
-                          `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${val}`,
+                          `https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fit,q_auto,f_auto,e_sharpen,dpr_auto/${val}`,
                         );
                       }}
                     >
                       <img
-                        src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fill,g_auto,q_auto,f_auto,e_sharpen,dpr_auto/${val}`}
+                        src={`https://res.cloudinary.com/ekomjah/image/fetch/w_150,h_150,c_fit,q_auto,f_auto,e_sharpen,dpr_auto/${val}`}
                         alt="item-thumbnail"
                         className="h-full w-full"
                       />
@@ -194,21 +194,12 @@ export default function Item() {
                     </p>
                     <button
                       className="p-3! focus:outline-0"
-                      onClick={() => {
-                        console.log(
-                          "increasing quantity in cart",
-                          +getQuantity(detailsObj.id) + 1,
-                        );
-                        console.log(
-                          "previous quantity",
-                          +getQuantity(detailsObj.id),
-                        );
-
+                      onClick={() =>
                         updateCartData(
                           detailsObj.id,
                           +getQuantity(detailsObj.id) + 1,
-                        );
-                      }}
+                        )
+                      }
                     >
                       <Plus strokeWidth={3} />
                     </button>
@@ -236,7 +227,7 @@ export default function Item() {
                           {
                             action: (
                               <button
-                              className="cta p-4"
+                                className="cta ml-auto rounded-md"
                                 onClick={() => {
                                   navigate("/shop/cart");
                                 }}

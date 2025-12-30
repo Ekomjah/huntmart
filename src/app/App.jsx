@@ -32,7 +32,7 @@ export default function App() {
           </div>
         </div>
       </div>
-      <h2 className="font-base mx-auto my-8 mt-20 w-[90vw] max-w-7xl text-left font-sans text-xl font-semibold text-(--hunt-text) md:text-3xl">
+      <h2 className="font-base mx-auto mt-20 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl">
         Shop by various categories
       </h2>
       <div className="mx-auto mb-10 grid w-[90vw] max-w-7xl gap-6 md:grid-cols-4">
