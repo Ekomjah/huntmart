@@ -1,9 +1,22 @@
 import { useFetch } from "../../hooks/useFetch";
-import ProductsGrid from "../hunt-categories/ProductGrid";
+import ProductsGrid from "../hunt-cards/ProductGrid";
 import { useMemo } from "react";
-import BrandGrid from "../hunt-categories/Brand";
+import BrandGrid from "../hunt-cards/Brand";
+import Savings from "../hunt-cards/Savings";
 export default function ProductList() {
   const { data: products = {}, isLoading, isError, refetch } = useFetch();
+  const getSavings = (amountToSave) => {
+    const arrayOfProducts = Object.values(products);
+    const discountedToAmountArray = arrayOfProducts.filter(
+      (product) =>
+        (product.discountPercentage / 100) * product.price >= amountToSave,
+    );
+    if (discountedToAmountArray.length > 0) {
+      console.log(discountedToAmountArray);
+      return discountedToAmountArray;
+    }
+    return null;
+  };
   const getRandomProducts = (data, count = 6) => {
     const products = Object.entries(data);
     let lengthCounter = products.length - 1;
@@ -73,6 +86,10 @@ export default function ProductList() {
         Today's best deals for you!
       </h2>
       <ProductsGrid products={randomProducts} />
+      <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
+        Save huge amounts in discount
+      </h2>
+      <Savings getSavings={getSavings} />
       <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
         Weekly popular products
       </h2>

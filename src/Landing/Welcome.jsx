@@ -132,13 +132,13 @@ export default function Welcome() {
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
-                img: bannerImg1,
+                img: bannerImg3,
                 title: "Electronics",
                 desc: "Latest tech gadgets",
               },
-              { img: bannerImg2, title: "Fashion", desc: "Trendy apparel" },
+              { img: bannerImg1, title: "Fashion", desc: "Trendy apparel" },
               {
-                img: bannerImg3,
+                img: bannerImg2,
                 title: "Lifestyle",
                 desc: "Quality essentials",
               },
