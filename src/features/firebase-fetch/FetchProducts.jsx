@@ -46,8 +46,14 @@ export default function ProductList() {
 
     return brands.slice(0, count);
   }
-  const randomBrands = useMemo(() => getRandomValues(products), []);
-  const randomProducts = useMemo(() => getRandomProducts(products), []);
+  const randomBrands = useMemo(
+    () => getRandomValues(products),
+    [JSON.stringify(products)],
+  );
+  const randomProducts = useMemo(
+    () => getRandomProducts(products),
+    [JSON.stringify(products)],
+  );
 
   if (isLoading) {
     return (
@@ -89,7 +95,14 @@ export default function ProductList() {
       <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
         Save huge amounts in discount
       </h2>
-      <Savings getSavings={getSavings} />
+      <div>
+        <div>
+          <h2 className="font-pop text-xl text-gray-600">Save </h2>
+          <div className="text-3xl font-semibold text-(--hunt-primary)">
+            $200
+          </div>
+        </div>
+      </div>
       <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
         Weekly popular products
       </h2>
