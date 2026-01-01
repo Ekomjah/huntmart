@@ -1,10 +1,31 @@
 import { useFetch } from "../../hooks/useFetch";
 import ProductsGrid from "../hunt-cards/ProductGrid";
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import BrandGrid from "../hunt-cards/Brand";
 import Savings from "../hunt-cards/Savings";
+import { useCallback } from "react";
 export default function ProductList() {
   const { data: products = {}, isLoading, isError, refetch } = useFetch();
+  const [dailyDeals, setDailyDeals] = useState([]);
+
+  useEffect(() => {
+    if (!products) return;
+
+    const lastUpdated = localStorage.getItem("dailyDealsTimer");
+    const today = new Date().toDateString();
+    if (lastUpdated !== today) {
+      const deals = getRandomProducts(products, 12);
+      setDailyDeals(deals);
+      localStorage.setItem("dailyDeals", JSON.stringify(deals));
+      localStorage.setItem("dailyDealsTimer", today);
+    } else {
+      setDailyDeals(JSON.parse(localStorage.getItem("dailyDeals")));
+    }
+  }, [products, getRandomProducts]);
+
+  useEffect(() => {
+    if (!products) return;
+  });
   const getSavings = (amountToSave) => {
     const arrayOfProducts = Object.values(products);
     const discountedToAmountArray = arrayOfProducts.filter(
@@ -17,7 +38,8 @@ export default function ProductList() {
     }
     return null;
   };
-  const getRandomProducts = (data, count = 6) => {
+
+  const getRandomProducts = useCallback((data, count = 6) => {
     const products = Object.entries(data);
     let lengthCounter = products.length - 1;
     while (lengthCounter > 0) {
@@ -30,7 +52,7 @@ export default function ProductList() {
     }
 
     return products.slice(0, count);
-  };
+  }, []);
 
   function getRandomValues(data, count = 8, randomValue = "brand") {
     const brands = [
@@ -51,7 +73,7 @@ export default function ProductList() {
     [JSON.stringify(products)],
   );
   const randomProducts = useMemo(
-    () => getRandomProducts(products),
+    () => getRandomProducts(products, 12),
     [JSON.stringify(products)],
   );
 
@@ -84,23 +106,79 @@ export default function ProductList() {
 
   return (
     <>
-      <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl">
+      <h2 className="font-base mx-auto mt-8 mb-4 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl">
         Choose by Brand
       </h2>
       <BrandGrid brands={randomBrands} />
-      <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
+      <h2 className="font-base mx-auto mt-8 mb-4 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
         Today's best deals for you!
       </h2>
-      <ProductsGrid products={randomProducts} />
-      <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
+      <ProductsGrid products={dailyDeals} />
+      <h2 className="font-base mx-auto mt-8 mb-4 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
         Save huge amounts in discount
       </h2>
-      <div>
-        <div>
-          <h2 className="font-pop text-xl text-gray-600">Save </h2>
-          <div className="text-3xl font-semibold text-(--hunt-primary)">
-            $200
+      <div className="mx-auto mb-8 flex w-[90vw] max-w-7xl flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+        <div className="rounded-lg border border-gray-300 bg-white shadow-md transition-transform hover:scale-101">
+          <div className="flex flex-col p-4">
+            <h2 className="font-pop text-xl text-gray-600">Save</h2>
+            <div className="text-3xl font-semibold text-(--hunt-primary)">
+              $500
+            </div>
+            <p>Checkout latest automobile models at crazy discounts</p>
           </div>
+          <img
+            src="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e6cd367817e964f756_sofa-min.png"
+            alt="furniture"
+            className="mt-4 h-32 w-full rounded-b-lg object-cover"
+          />
+        </div>
+        <div className="rounded-lg border border-gray-300 bg-white shadow-md transition-transform hover:scale-101">
+          <div className="flex flex-col p-4">
+            <h2 className="font-pop text-xl text-gray-600">Save</h2>
+            <div className="text-3xl font-semibold text-(--hunt-primary)">
+              $250
+            </div>
+            <p>
+              Explore a wide range of discounted furniture and home decor items
+            </p>
+          </div>
+          <img
+            src="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e6cd367817e964f756_sofa-min.png"
+            alt="furniture"
+            className="mt-4 h-32 w-full rounded-b-lg object-cover"
+          />
+        </div>
+        <div className="rounded-lg border border-gray-300 bg-white shadow-md transition-transform hover:scale-101">
+          <div className="flex flex-col p-4">
+            <h2 className="font-pop text-xl text-gray-600">Save</h2>
+            <div className="text-3xl font-semibold text-(--hunt-primary)">
+              $200
+            </div>
+            <p>
+              Explore a wide range of discounted furniture and home decor items
+            </p>
+          </div>
+          <img
+            src="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e6cd367817e964f756_sofa-min.png"
+            alt="furniture"
+            className="mt-4 h-32 w-full rounded-b-lg object-cover"
+          />
+        </div>
+        <div className="rounded-lg border border-gray-300 bg-white shadow-md transition-transform hover:scale-101">
+          <div className="flex flex-col p-4">
+            <h2 className="font-pop text-xl text-gray-600">Save</h2>
+            <div className="text-3xl font-semibold text-(--hunt-primary)">
+              $200
+            </div>
+            <p>
+              Explore a wide range of discounted furniture and home decor items
+            </p>
+          </div>
+          <img
+            src="https://cdn.prod.website-files.com/63e857eaeaf853471d5335ff/63e8c4e6cd367817e964f756_sofa-min.png"
+            alt="furniture"
+            className="mt-4 h-32 w-full rounded-b-lg object-cover"
+          />
         </div>
       </div>
       <h2 className="font-base mx-auto mt-8 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
