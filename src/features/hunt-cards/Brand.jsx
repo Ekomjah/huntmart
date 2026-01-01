@@ -2,19 +2,22 @@ export default function BrandGrid({ brands }) {
   return (
     <div className="mx-auto mb-4 grid w-[90vw] max-w-7xl grid-cols-2 gap-4 md:grid-cols-4">
       {brands.map((brand) => {
-        const encodedBrand = encodeURIComponent(brand);
+        const encodedBrand = brand.trim().replace(/\s+/g, "").toLowerCase();
 
         return (
           <div
             key={brand}
-            className="flex flex-col items-center gap-2 rounded-lg border p-4 transition hover:shadow-md"
+            className="group flex items-center justify-between gap-2 rounded-lg border border-gray-300 p-4 transition hover:border-black hover:shadow-md"
           >
             <img
-              src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodedBrand}`}
+              src={`https://img.logo.dev/name/${encodedBrand}?token=${import.meta.env.VITE_LOGO_DEV_PUBLIC_KEY}&retina=true&size=64`}
               alt={brand}
-              className="h-16 w-16 rounded-full bg-gray-100"
+              className="h-16 w-16 rounded-full bg-gray-100 transition-transform group-hover:scale-105"
             />
-            <span className="text-center text-sm font-medium">{brand}</span>
+            <div className="font-pop flex flex-col">
+              <span className="text-center text-lg font-semibold">{brand}</span>
+              <span>Delivery within 48 hrs</span>
+            </div>
           </div>
         );
       })}
