@@ -1,14 +1,7 @@
 import { Link } from "react-router";
-export default function Footer() {
-  const convertToSentenceCase = (str) => {
-    return str
-      .toLowerCase()
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  };
+import { convertToSentenceCase } from "@/utils/formatSentence";
+export function Footer() {
   const year = new Date().getFullYear();
-
   return (
     <footer className="border-t border-gray-200 bg-gray-50 text-gray-700">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:py-16">
@@ -257,15 +250,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-// <div className="mx-auto flex max-w-[1000px] flex-wrap items-center justify-center p-8">
-//   <h2 className="gap-4 text-lg font-semibold text-(--hunt-primary)">
-//     HuntMart
-//   </h2>
-//   <div>
-//     <h2 className="gap-4 text-lg font-semibold text-(--hunt-primary)">
-//       Categories
-//     </h2>
-//
-//   </div>
-// </div>

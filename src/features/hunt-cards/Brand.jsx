@@ -1,4 +1,4 @@
-export default function BrandGrid({ brands }) {
+export function BrandGrid({ brands }) {
   return (
     <div className="mx-auto mb-4 grid w-[90vw] max-w-7xl grid-cols-2 gap-4 md:grid-cols-4">
       {brands.map((brand) => {

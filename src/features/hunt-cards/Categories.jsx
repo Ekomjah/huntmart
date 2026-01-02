@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-export default function HuntCategories({ collection }) {
+export function HuntCategories({ collection }) {
   return (
     <div
       key={collection.title}
