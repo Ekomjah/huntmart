@@ -10,53 +10,47 @@ export default function ProductList() {
   const [dailyDeals, setDailyDeals] = useState([]);
   const [count, setCount] = useState(8);
   const [weeklyDeals, setWeeklyDeals] = useState([]);
-
+  const stringifiedReferenceObject = JSON.stringify(products);
   const randomBrands = useMemo(
     () => getRandomValues(products),
-    [JSON.stringify(products)],
+    [stringifiedReferenceObject],
   );
 
-  const randomProducts = getRandomProducts(products);
+  const randomProducts = useMemo(
+    () => getRandomProducts(products),
+    [stringifiedReferenceObject],
+  );
   console.log("result of randomProducts: ", randomProducts);
 
   useEffect(() => {
-    if (!isLoading && Object.keys(products).length > 0) {
-      const lastUpdatedWeeklyDeals = localStorage.getItem("weeklyDealsTimer");
-      const today = new Date().toDateString();
-      if (!isThisWeek(new Date(lastUpdatedWeeklyDeals))) {
-        const deals = getRandomProducts(products, 12);
-        if (deals.length === 0) {
-          console.log("no products available yet");
-          return;
+    function updateStates(
+      stateSetter,
+      localDataKey,
+      localTimerKey,
+      isWeek = false,
+    ) {
+      if (!isLoading && Object.keys(products).length > 0) {
+        const lastUpdatedWeeklyDeals = localStorage.getItem(localTimerKey);
+        const today = new Date().toDateString();
+        const resetCondition = isWeek
+          ? !isThisWeek(new Date(lastUpdatedWeeklyDeals))
+          : !isToday(new Date(lastUpdatedWeeklyDeals));
+        if (resetCondition) {
+          const deals = getRandomProducts(products, 12);
+          if (deals.length === 0) {
+            return;
+          }
+          stateSetter(deals);
+          localStorage.setItem(localDataKey, JSON.stringify(deals));
+          localStorage.setItem(localTimerKey, today);
+        } else {
+          stateSetter(JSON.parse(localStorage.getItem(localDataKey)));
         }
-        setWeeklyDeals(deals);
-        localStorage.setItem("weeklyDeals", JSON.stringify(deals));
-        localStorage.setItem("weeklyDealsTimer", today);
-      } else {
-        setWeeklyDeals(JSON.parse(localStorage.getItem("weeklyDeals")));
       }
     }
+    updateStates(setWeeklyDeals, "weeklyDeals", "weeklyDealsTimer", true);
+    updateStates(setDailyDeals, "dailyDeals", "dailyDealsTimer");
   }, [isLoading, products, getRandomProducts]);
-
-  useEffect(() => {
-    if (!isLoading && Object.keys(products).length > 0) {
-      const lastUpdatedDailyDeals = localStorage.getItem("dailyDealsTimer");
-      const today = new Date().toDateString();
-      if (!isToday(new Date(lastUpdatedDailyDeals))) {
-        const deals = getRandomProducts(products, 12);
-        if (deals.length === 0) {
-          throw new Error("no products available yet");
-        }
-        setDailyDeals(deals);
-        localStorage.setItem("dailyDeals", JSON.stringify(deals));
-        localStorage.setItem("dailyDealsTimer", today);
-      } else {
-        setDailyDeals(JSON.parse(localStorage.getItem("dailyDeals")));
-      }
-    }
-  }, [isLoading, products, getRandomProducts]);
-
-  useEffect(() => {}, [products, getRandomProducts]);
 
   if (isLoading) {
     return (
