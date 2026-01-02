@@ -12,13 +12,12 @@ export default defineConfig({
     setupFiles: "./tests/setup.js",
   },
   server: {
-    host: '0.0.0.0',
+    host: true,
     port: 5173,
     strictPort: true,
     hmr: {
-      host: '192.168.0.3',
-      protocol: 'ws'
-    }
+      clientPort: 5173,
+    },
   },
   resolve: {
     alias: {

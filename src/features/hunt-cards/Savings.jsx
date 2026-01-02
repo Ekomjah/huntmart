@@ -1,3 +1,16 @@
+// const getSavings = (amountToSave) => {
+//   const arrayOfProducts = Object.values(products);
+//   const discountedToAmountArray = arrayOfProducts.filter(
+//     (product) =>
+//       (product.discountPercentage / 100) * product.price >= amountToSave,
+//   );
+//   if (discountedToAmountArray.length > 0) {
+//     console.log(discountedToAmountArray);
+//     return discountedToAmountArray;
+//   }
+//   return null;
+// };
+
 export default function Savings({ getSavings }) {
   return (
     <div>
