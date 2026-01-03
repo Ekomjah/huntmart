@@ -23,9 +23,11 @@ export default function CarouselApp() {
   const progressCircle = useRef(null);
   const swiperRef = useRef(null);
   const progressContent = useRef(null);
+
   const onAutoplayTimeLeft = (s, time, progress) => {
-    progressCircle.current.style.setProperty("--progress", 1 - progress);
-    // progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+    if (progressCircle.current) {
+      progressCircle.current.style.setProperty("--progress", 1 - progress);
+    }
   };
 
   const handlePlaynPause = () => {
@@ -61,11 +63,12 @@ export default function CarouselApp() {
           <SwiperSlide key={image}>
             <div className={cn(styles["slide-inner"], "h-full w-full")}>
               {!loadedImages[image] && (
-                <div className="z-1000 h-full w-full animate-pulse bg-gray-400"></div>
+                <div className="absolute inset-0 h-full w-full animate-pulse bg-gray-400"></div>
               )}
               <img
                 src={image}
-                className="w-full"
+                alt="carousel"
+                loading="lazy"
                 onLoad={() =>
                   setLoadedImages((prev) => ({ ...prev, [image]: true }))
                 }
