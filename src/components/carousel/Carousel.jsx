@@ -1,13 +1,8 @@
 import React, { useRef, useState } from "react";
 import { CirclePlay, CirclePause } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import img1 from "../../assets/pictures/charlesdeluvio-FK81rxilUXg-unsplash.jpg";
 import img2 from "../../assets/pictures/freestocks-_3Q3tsJ01nc-unsplash.jpg";
-import img3 from "../../assets/pictures/freestocks-VFrcRtEQKL8-unsplash.jpg";
-import img4 from "../../assets/pictures/maria-lin-kim-8RaUEd8zD-U-unsplash.jpg";
-import img5 from "../../assets/pictures/nathan-waters-ykH4Wtocefc-unsplash.jpg";
 import { cn } from "../../utils/utils";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -19,12 +14,9 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function CarouselApp() {
   const img = [
-    img1,
+    "https://res.cloudinary.com/ekomjah/image/upload/v1767458493/1_oid11x.png",
+    "https://res.cloudinary.com/ekomjah/image/upload/v1767458486/2_ebe1mt.png",
     img2,
-    img3,
-    img4,
-    img5,
-    "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fHww",
   ];
   const [isPlaying, setIsPlaying] = useState(true);
   const [loadedImages, setLoadedImages] = useState({});
