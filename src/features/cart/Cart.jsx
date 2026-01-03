@@ -50,7 +50,7 @@ export function Cart() {
                   <img
                     src={obj.image}
                     alt={obj.title}
-                    className="h-24 w-24 object-cover"
+                    className="h-24 w-24 object-contain"
                   />
                 </Link>
                 <div className="flex flex-1 flex-col justify-between">
