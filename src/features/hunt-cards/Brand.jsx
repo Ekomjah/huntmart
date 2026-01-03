@@ -3,6 +3,8 @@ export function BrandGrid({ brands }) {
     <div className="mx-auto mb-4 grid w-[90vw] max-w-7xl grid-cols-2 gap-4 md:grid-cols-4">
       {brands.map((brand) => {
         const encodedBrand = brand.trim().replace(/\s+/g, "").toLowerCase();
+        const img = `https://img.logo.dev/name/${encodedBrand}?token=${import.meta.env.VITE_LOGO_DEV_PUBLIC_KEY}&retina=true&size=64`;
+        console.log("brand image url", img);
 
         return (
           <div
