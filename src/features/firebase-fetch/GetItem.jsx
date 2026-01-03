@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import StaticRatings from "@/components/ratings/StaticRatings";
 import { cn } from "@/utils/utils";
+import { displayName } from "@/utils/nameShortener";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from "react-router";
 import { Toaster, toast } from "sonner";
@@ -28,7 +29,7 @@ export default function Item() {
 
   if (isLoading)
     return (
-      <div className="mx-auto flex min-h-screen w-[80vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
+      <div className="mx-auto flex min-h-screen w-[80vw] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-(--hunt-primary) border-t-transparent"></div>
       </div>
     );
@@ -71,10 +72,8 @@ export default function Item() {
       }
     }
 
-    const displayName = (name) =>
-      name.length > 15 ? `${name.slice(0, 15)}...` : name;
     return (
-      <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1000px] items-center justify-center bg-gray-50 font-sans text-gray-800">
+      <div className="mx-auto flex min-h-screen w-[90vw] max-w-[1300px] items-center justify-center bg-gray-50 font-sans text-gray-800">
         <Toaster richColors position="top-center" duration={3000} />
 
         <div

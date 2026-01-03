@@ -12,7 +12,7 @@ export function BrandGrid({ brands }) {
             <img
               src={`https://img.logo.dev/name/${encodedBrand}?token=${import.meta.env.VITE_LOGO_DEV_PUBLIC_KEY}&retina=true&size=64`}
               alt={brand}
-              className="h-8 w-8 rounded-full bg-gray-100 transition-transform group-hover:scale-105 md:h-16 md:w-16"
+              className="h-8 w-8 rounded-full bg-gray-100 transition-transform group-hover:scale-105 lg:h-16 lg:w-16"
             />
             <div className="font-pop flex flex-col">
               <span className="text-center text-base font-semibold md:text-lg">
