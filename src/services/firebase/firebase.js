@@ -8,14 +8,14 @@ import { getDatabase } from "firebase/database";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyB67Y94F0T7n3960P5joB3IMHj5IUjwwD0",
-  authDomain: "e-commerce-app-hunt.firebaseapp.com",
-  databaseURL: "https://e-commerce-app-hunt-default-rtdb.firebaseio.com",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
   projectId: "e-commerce-app-hunt",
   storageBucket: "e-commerce-app-hunt.firebasestorage.app",
-  messagingSenderId: "435876210466",
-  appId: "1:435876210466:web:84f665f1a3c9f5df0ba77b",
-  measurementId: "G-1DZWFSBDTF",
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
