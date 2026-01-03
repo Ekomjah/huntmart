@@ -20,8 +20,6 @@ export default function ProductList() {
     () => getRandomProducts(products),
     [stringifiedReferenceObject],
   );
-  console.log("result of randomProducts: ", randomProducts);
-
   useEffect(() => {
     function updateStates(
       stateSetter,

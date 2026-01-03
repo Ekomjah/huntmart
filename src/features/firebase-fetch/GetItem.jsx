@@ -34,7 +34,7 @@ export default function Item() {
       </div>
     );
   if (isError) {
-    console.log("some error, ", isError);
+    console.error("some error, ", isError);
     return <Navigate to={`/errorPage`} replace />;
   }
   if (item) {

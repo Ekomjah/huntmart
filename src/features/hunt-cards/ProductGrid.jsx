@@ -13,7 +13,6 @@ export function ProductsGrid({ products }) {
     useCartStore();
   const displayTitle = (title) =>
     title.length > 18 ? `${title.slice(0, 18)}...` : title;
-  console.log("received props in ProductsGrid component", products);
   return (
     <div className="mx-auto mb-16 grid w-[90vw] max-w-7xl grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
       {products.map(([id, product]) => {

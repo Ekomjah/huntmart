@@ -12,7 +12,6 @@ const useCartStore = create((set, get) => ({
         "Invalid item: Item must have a valid 'id' property of type string or number",
       );
     }
-    console.log("Adding to cart:", item.title);
     set((state) => ({
       cartData: { ...state.cartData, [item.id]: item },
     }));
@@ -20,7 +19,6 @@ const useCartStore = create((set, get) => ({
     localStorage.setItem("cartData", JSON.stringify(updatedCartData));
   },
   updateCartData: (id, quantity) => {
-    console.log("updateQuantity called with", { id, quantity });
     if (typeof +quantity !== "number" || quantity < 0) {
       throw new Error(
         "Invalid quantity: Quantity must be a non-negative number",
@@ -31,17 +29,11 @@ const useCartStore = create((set, get) => ({
     }
     set((state) => {
       if (quantity === 0) {
-        console.log("deleting, ... ");
         const shallowCopyOfCartData = { ...state.cartData };
         delete shallowCopyOfCartData[id];
         localStorage.setItem("cartData", JSON.stringify(shallowCopyOfCartData));
         return { cartData: shallowCopyOfCartData };
       }
-      console.log(
-        "Items required to calculate clampQuantity",
-        +quantity,
-        +state.cartData[id].stock,
-      );
       const clampedQuantity = Math.min(+quantity, +state.cartData[id].stock);
       const updatedCartData = {
         ...state.cartData,
@@ -52,7 +44,6 @@ const useCartStore = create((set, get) => ({
     });
   },
   deleteFromCart: (id) => {
-    console.log("successfully called in update component");
     set((state) => {
       const shallowCopyOfCartData = { ...state.cartData };
       delete shallowCopyOfCartData[id];
@@ -63,7 +54,6 @@ const useCartStore = create((set, get) => ({
   },
   clearCart: () => {
     set((state) => {
-      console.log("Deleting all items in cart");
       const updatedCartData = { cartData: {} };
       localStorage.setItem("cartData", JSON.stringify(updatedCartData));
       return updatedCartData;
@@ -75,7 +65,6 @@ const useCartStore = create((set, get) => ({
       (total, item) => total + (parseInt(item.quantity) ?? 0),
       0,
     );
-    console.log("totalQuantity", totalQuantity);
     return totalQuantity;
   },
 }));

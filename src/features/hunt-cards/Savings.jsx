@@ -5,7 +5,6 @@
 //       (product.discountPercentage / 100) * product.price >= amountToSave,
 //   );
 //   if (discountedToAmountArray.length > 0) {
-//     console.log(discountedToAmountArray);
 //     return discountedToAmountArray;
 //   }
 //   return null;

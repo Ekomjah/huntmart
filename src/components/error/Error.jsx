@@ -4,7 +4,7 @@ import { House } from "lucide-react";
 import "./error.css";
 export default function ErrorPage() {
   const error = useRouteError();
-  console.log("errorElement: ", error);
+  console.error("errorElement: ", error);
   return (
     <div>
       <div className="relative flex w-full">
