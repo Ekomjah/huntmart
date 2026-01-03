@@ -5,6 +5,7 @@ export function BrandGrid({ brands }) {
         const encodedBrand = brand.trim().replace(/\s+/g, "").toLowerCase();
         const img = `https://img.logo.dev/name/${encodedBrand}?token=${import.meta.env.VITE_LOGO_DEV_PUBLIC_KEY}&retina=true&size=64`;
         console.log("brand image url", img);
+        console.log("encodedBrand", encodedBrand);
 
         return (
           <div
