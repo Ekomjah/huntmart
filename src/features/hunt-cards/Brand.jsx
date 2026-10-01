@@ -1,32 +1,32 @@
+import { brandLogo } from "@/utils/cloudinary";
+
 export function BrandGrid({ brands }) {
   return (
-    <div className="mx-auto mb-4 grid w-[90vw] max-w-7xl grid-cols-2 gap-4 md:grid-cols-4">
-      {brands.map((brand) => {
-        const encodedBrand = brand.trim().replace(/\s+/g, "").toLowerCase();
-        console.log("encodedBrand", encodedBrand);
-        console.log("encodedBrand", encodedBrand);
-
-        return (
-          <div
-            key={brand}
-            className="group flex items-center justify-between gap-2 rounded-lg border border-gray-300 p-4 transition hover:border-black hover:shadow-md"
-          >
-            <img
-              src={`https://img.logo.dev/name/${encodedBrand}?token=pk_DobpyacUTjWTJcYMlq_OYA&retina=true&size=64`}
-              alt={brand}
-              className="h-8 w-8 rounded-full bg-gray-100 transition-transform group-hover:scale-105 lg:h-16 lg:w-16"
-            />
-            <div className="font-pop flex flex-col">
-              <span className="text-center text-base font-semibold md:text-lg">
-                {brand}
-              </span>
-              <span className="text-sm md:text-base">
-                Delivery within 48 hrs
-              </span>
-            </div>
+    <div className="mx-auto mb-4 grid w-[90vw] max-w-7xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {brands.map((brand) => (
+        <div
+          key={brand}
+          className="group flex items-center gap-2 rounded-lg border border-gray-200 bg-white p-2 transition hover:border-(--hunt-primary) hover:shadow-sm"
+        >
+          <img
+            src={brandLogo(brand)}
+            alt={brand}
+            width={32}
+            height={32}
+            loading="lazy"
+            decoding="async"
+            className="h-8 w-8 shrink-0 rounded-full bg-gray-100 object-contain transition-transform group-hover:scale-105 sm:h-10 sm:w-10"
+          />
+          <div className="font-pop flex min-w-0 flex-col">
+            <span className="truncate text-xs font-semibold sm:text-sm">
+              {brand}
+            </span>
+            <span className="text-[11px] text-gray-500 sm:text-xs">
+              Delivery in 48 hrs
+            </span>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }

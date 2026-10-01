@@ -79,19 +79,19 @@ export default function ProductList() {
 
   return (
     <>
-      <h2 className="font-base mx-auto mt-24 mb-4 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl">
+      <h2 className="mx-auto mt-16 mb-3 w-[90vw] max-w-7xl text-left font-sans text-xl font-bold text-(--hunt-text) sm:text-2xl">
         Choose by Brands
       </h2>
       <BrandGrid brands={randomBrands} />
-      <h2 className="font-base mx-auto mt-24 mb-4 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
+      <h2 className="mx-auto mt-16 mb-3 w-[90vw] max-w-7xl text-left font-sans text-xl font-bold text-(--hunt-text) sm:text-2xl">
         Today's best deals for you!
       </h2>
       <ProductsGrid products={dailyDeals} />
-      <h2 className="font-base mx-auto mt-24 mb-4 w-[90vw] max-w-7xl grid-cols-2 text-left font-sans text-2xl font-bold text-(--hunt-text) md:grid-cols-4 md:text-3xl!">
+      <h2 className="mx-auto mt-16 mb-3 w-[90vw] max-w-7xl text-left font-sans text-xl font-bold text-(--hunt-text) sm:text-2xl">
         Save huge amounts from discounts
       </h2>
       <Savings />
-      <h2 className="font-base mx-auto mt-24 mb-2 w-[90vw] max-w-7xl text-left font-sans text-2xl font-bold text-(--hunt-text) md:text-3xl!">
+      <h2 className="mx-auto mt-16 mb-3 w-[90vw] max-w-7xl text-left font-sans text-xl font-bold text-(--hunt-text) sm:text-2xl">
         Weekly popular products
       </h2>
       <ProductsGrid products={weeklyDeals} />
