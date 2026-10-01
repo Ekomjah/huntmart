@@ -7,7 +7,7 @@ export default function AppLayout() {
   return (
     <>
       <PrimarySearchAppBar />
-      <Box sx={{ pt: 10 }}>
+      <Box sx={{ pt: 14 }}>
         <Outlet />
       </Box>
     </>
