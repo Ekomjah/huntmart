@@ -91,22 +91,52 @@ A modern, feature-rich e-commerce web application built with React, Vite, and Fi
    pnpm install
    ```
 
-3. **Configure Firebase**
-   - Add your Firebase configuration to [src/services/firebase/firebase.js](src/services/firebase/firebase.js)
-   - Ensure the Firebase project is set up with Firestore database
+3. **Environment Variables**
 
-4. **Configure Algolia** (if not already done)
-   - Set up your Algolia application and index
-   - Update the Algolia credentials in your search configuration
+   ```bash
+   cp .env.example .env.local
+   ```
 
-5. **Environment Variables**
-   - Create a `.env.local` file with necessary credentials:
-     ```
-     VITE_FIREBASE_API_KEY=<your-key>
-     VITE_FIREBASE_AUTH_DOMAIN=<your-domain>
-     VITE_ALGOLIA_APP_ID=<your-app-id>
-     VITE_ALGOLIA_SEARCH_KEY=<your-search-key>
-     ```
+   Then fill in `.env.local`. This is the step the app cannot start
+   without: `initializeApp` throws if its config is incomplete, which
+   breaks the `/shop` route entirely.
+
+   Required:
+
+   ```
+   VITE_FIREBASE_API_KEY=<your-key>
+   VITE_FIREBASE_AUTH_DOMAIN=e-commerce-app-hunt.firebaseapp.com
+   VITE_FIREBASE_DATABASE_URL=https://e-commerce-app-hunt-default-rtdb.firebaseio.com
+   ```
+
+   Needed only if Firebase Analytics is enabled:
+
+   ```
+   VITE_MESSAGING_SENDER_ID=
+   VITE_MEASUREMENT_ID=
+   VITE_APP_ID=
+   ```
+
+   Algolia is **not** required to boot. The search-only credentials are
+   currently hardcoded in
+   [src/features/searchWithAlgolia/algoliaSearch.jsx](src/features/searchWithAlgolia/algoliaSearch.jsx),
+   so `/shop/search` works without any env file. To point it at your own
+   index, move those literals to `VITE_ALGOLIA_APP_ID` and
+   `VITE_ALGOLIA_SEARCH_KEY` and read them via `import.meta.env`.
+
+   Everything prefixed `VITE_` is inlined into the client bundle. None of
+   these are secret. Secure your data with Firebase Security Rules rather
+   than by withholding these values.
+
+4. **Firebase project**
+   - Enable **Realtime Database** (not Firestore) for project
+     `e-commerce-app-hunt`. Products are read from the `products` node.
+   - Single-product reads go to the public REST endpoint configured in
+     [src/services/firebase/client.js](src/services/firebase/client.js).
+
+5. **Algolia**
+   - Create an index named `products`. The search route hardcodes this
+     name at `algoliaSearch.jsx:48`.
 
 ## 🚀 Development
 

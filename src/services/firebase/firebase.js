@@ -20,5 +20,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Analytics needs a measurementId, so only initialise it when one is
+// configured. Calling getAnalytics without it throws, which would take
+// down this module and with it every route that reads from the database.
+let analytics = null;
+if (firebaseConfig.measurementId) {
+  try {
+    analytics = getAnalytics(app);
+  } catch {
+    analytics = null;
+  }
+}
+
+export { analytics };
 export const db = getDatabase(app);
