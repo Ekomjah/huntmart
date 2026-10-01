@@ -117,16 +117,24 @@ A modern, feature-rich e-commerce web application built with React, Vite, and Fi
    VITE_APP_ID=
    ```
 
-   Algolia is **not** required to boot. The search-only credentials are
-   currently hardcoded in
-   [src/features/searchWithAlgolia/algoliaSearch.jsx](src/features/searchWithAlgolia/algoliaSearch.jsx),
-   so `/shop/search` works without any env file. To point it at your own
-   index, move those literals to `VITE_ALGOLIA_APP_ID` and
-   `VITE_ALGOLIA_SEARCH_KEY` and read them via `import.meta.env`.
+   Also required for `/shop/search`:
+
+   ```
+   VITE_ALGOLIA_APP_ID=<your-app-id>
+   VITE_ALGOLIA_SEARCH_KEY=<search-only-key>
+   ```
 
    Everything prefixed `VITE_` is inlined into the client bundle. None of
    these are secret. Secure your data with Firebase Security Rules rather
    than by withholding these values.
+
+   **Rotate the Algolia admin key.** Never set `VITE_ALGOLIA_ADMIN_KEY`.
+   Seeding uses a separate env var that is read by a script, not the app:
+
+   ```bash
+   ALGOLIA_APP_ID=<app-id> ALGOLIA_ADMIN_KEY=<admin-key> \
+     node scripts/seed-algolia.mjs
+   ```
 
 4. **Firebase project**
    - Enable **Realtime Database** (not Firestore) for project

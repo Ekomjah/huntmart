@@ -17,7 +17,12 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Link, useNavigate, useLocation } from "react-router";
+import {
+  Link,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router";
 import { useState } from "react";
 import { useCartStore } from "@/stores/useCartStore";
 
@@ -254,18 +259,27 @@ export default function PrimarySearchAppBar() {
 }
 
 export function CustomSearchBox() {
-  const [query, setQuery] = useState("");
+  const [params] = useSearchParams();
+  const [query, setQuery] = useState(params.get("q") || "");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (event) => setQuery(event.target.value);
 
-  const handleClear = () => setQuery("");
+  const handleClear = () => {
+    setQuery("");
+    if (params.get("q")) {
+      navigate(location.pathname, { replace: true });
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      navigate(`/shop/search?q=${encodeURIComponent(query)}`);
-    }
+    const trimmed = query.trim();
+    navigate(
+      trimmed ? `/shop/search?q=${encodeURIComponent(trimmed)}` : "/shop/search",
+      { replace: true },
+    );
   };
 
   return (

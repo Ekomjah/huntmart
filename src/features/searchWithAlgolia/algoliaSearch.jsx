@@ -8,12 +8,12 @@ import {
 } from "react-instantsearch";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { useSearchParams } from "react-router";
-import PrimarySearchAppBar from "../../components/AppBar/Appbar";
 import { Link } from "react-router";
+import { formatMoney } from "@/utils/price";
 
 const searchClient = algoliasearch(
-  "3U179XKIHD",
-  "9d3d862c275cf9b6b36481e904011040",
+  import.meta.env.VITE_ALGOLIA_APP_ID,
+  import.meta.env.VITE_ALGOLIA_SEARCH_KEY,
 );
 
 function Hit({ hit }) {
@@ -32,7 +32,9 @@ function Hit({ hit }) {
           <Highlight attribute="title" hit={hit} />
         </h2>
         <p className="line-clamp-2 text-base text-[#777]">{hit.description}</p>
-        <p className="mt-2 font-bold text-indigo-400">${hit.price}</p>
+        <p className="mt-2 font-bold text-indigo-400">
+          ${formatMoney(hit.price)}
+        </p>
       </div>
     </Link>
   );
@@ -43,20 +45,18 @@ export default function SearchResultsPage() {
   const query = params.get("q") || "";
 
   return (
-    <>
-      <PrimarySearchAppBar />
-      <InstantSearch searchClient={searchClient} indexName="products">
-        <SearchManager query={query} />
-      </InstantSearch>
-    </>
+    <InstantSearch searchClient={searchClient} indexName="products">
+      <Configure query={query} hitsPerPage={10} />
+      <SearchResults query={query} />
+    </InstantSearch>
   );
 }
 
-function SearchManager({ query }) {
-  const { status } = useInstantSearch();
-  const { hits } = useHits();
+function SearchResults({ query }) {
+  const { status, error } = useInstantSearch();
+  const { items } = useHits();
 
-  if (status === "loading") {
+  if (status === "loading" || status === "stalled") {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-(--hunt-primary) border-t-transparent"></div>
@@ -64,17 +64,30 @@ function SearchManager({ query }) {
     );
   }
 
-  if (status === "idle" && hits.length === 0) {
+  if (status === "error") {
     return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <p className="text-lg text-gray-400">No products found for “{query}”</p>
+      <div className="flex h-screen w-screen flex-col items-center justify-center gap-2 px-6 text-center">
+        <p className="text-lg text-gray-700">Search is unavailable right now.</p>
+        <p className="max-w-md text-sm text-gray-500">
+          {error?.message ||
+            "The search service could not be reached. Please try again shortly."}
+        </p>
+      </div>
+    );
+  }
+
+  if (status === "idle" && items.length === 0) {
+    return (
+      <div className="flex h-screen w-screen items-center justify-center px-6 text-center">
+        <p className="text-lg text-gray-400">
+          {query ? `No products found for “${query}”` : "Start typing to search"}
+        </p>
       </div>
     );
   }
 
   return (
     <>
-      <Configure query={query} hitsPerPage={10} />
       <h2 className="p-4 text-xl font-semibold text-[#777]">
         Results for “{query}”
       </h2>
