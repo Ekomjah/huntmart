@@ -5,13 +5,9 @@ import StaticRatings from "@/components/ratings/StaticRatings";
 import { useCartStore } from "@/stores/useCartStore";
 import { displayName } from "@/utils/nameShortener";
 import { productImage, productSrcSet, LISTING_SIZES } from "@/utils/cloudinary";
+import { salePrice, round2 } from "@/utils/price";
 
 const LOW_STOCK = 5;
-
-function discountPrice(price, percentage) {
-  if (!percentage) return null;
-  return price * (1 - percentage / 100);
-}
 
 export function ProductsGrid({ products }) {
   const navigate = useNavigate();
@@ -27,7 +23,7 @@ export function ProductsGrid({ products }) {
         const quantity = getQuantity(id);
         const inCart = quantity > 0 && stock > 0;
         const soldOut = stock < 1;
-        const sale = discountPrice(price, discountPercentage);
+        const sale = discountPercentage ? salePrice(price, discountPercentage) : null;
         const lowStock = !soldOut && stock <= LOW_STOCK;
 
         return (
@@ -87,7 +83,7 @@ export function ProductsGrid({ products }) {
 
               <div className="mt-auto flex items-baseline gap-1.5">
                 <span className="font-pop text-base font-bold text-gray-900 sm:text-lg">
-                  ${(sale ?? price).toFixed(2)}
+                  ${round2(sale ?? price).toFixed(2)}
                 </span>
                 {sale && (
                   <span className="text-xs text-gray-400 line-through">
@@ -137,7 +133,7 @@ export function ProductsGrid({ products }) {
                       addToCartData({
                         id,
                         title,
-                        price: sale ?? price,
+                        price: round2(sale ?? price),
                         image: product.images[0],
                         stock,
                         quantity: Math.min(getQuantity(id) + 1, stock),

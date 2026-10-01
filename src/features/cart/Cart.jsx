@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import { cn } from "@/utils/utils";
+import { round2 } from "@/utils/price";
 
 export function Cart() {
   const {
@@ -21,13 +22,13 @@ export function Cart() {
   } = useCartStore();
   const [summaryOpen, setSummaryOpen] = useState(false);
   const totalPrice = Object.values(cartData).reduce(
-    (total, current) => total + current.price * current.quantity,
+    (total, current) => total + round2(current.price) * current.quantity,
     0,
   );
   const cartLength = Object.values(cartData).length;
   const shippingFee = cartLength > 0 ? 6 * cartLength : 0;
   const tax = totalPrice * 0.07;
-  const grandTotal = totalPrice + shippingFee + tax;
+  const grandTotal = round2(totalPrice + shippingFee + tax);
   const totalQuantity = getTotalQuantityOfItemsInCart();
   if (totalQuantity === 0) {
     return (
@@ -76,7 +77,9 @@ export function Cart() {
                     {obj.title}
                   </Link>
                   <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                    <span className="font-semibold">${obj.price}</span>
+                    <span className="font-semibold">
+                      ${round2(obj.price).toFixed(2)}
+                    </span>
                     <div className="flex shrink-0 items-center gap-2 rounded border border-gray-300 p-1">
                       <button
                         aria-label={`Decrease quantity of ${obj.title}`}
@@ -105,7 +108,7 @@ export function Cart() {
                 </div>
                 <div className="shrink-0 text-right">
                   <div className="font-semibold">
-                    ${(obj.price * obj.quantity).toFixed(2)}
+                    ${round2(round2(obj.price) * obj.quantity).toFixed(2)}
                   </div>
                 </div>
               </div>

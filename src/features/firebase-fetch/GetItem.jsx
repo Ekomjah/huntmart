@@ -10,6 +10,7 @@ import { displayName } from "@/utils/nameShortener";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from "react-router";
 import { Toaster, toast } from "sonner";
+import { salePrice } from "@/utils/price";
 export default function Item() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -219,7 +220,8 @@ export default function Item() {
                 ) : (
                   <div className="mt-4 flex items-center justify-between gap-4">
                     <button
-                      className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white"
+                      disabled={detailsObj.stock < 1}
+                      className="flex flex-1 items-center justify-around gap-7 bg-black p-2 font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-400"
                       onClick={() => {
                         toast.success(
                           `${displayName(detailsObj.title)} added to cart`,
@@ -239,7 +241,10 @@ export default function Item() {
                         addToCartData({
                           id: detailsObj.id,
                           title: detailsObj.title,
-                          price: detailsObj.price,
+                          price: salePrice(
+                            detailsObj.price,
+                            detailsObj.discountPercentage,
+                          ),
                           image: detailsObj.images[0],
                           stock: detailsObj.stock,
                           quantity:
