@@ -143,8 +143,9 @@ A modern, feature-rich e-commerce web application built with React, Vite, and Fi
      [src/services/firebase/client.js](src/services/firebase/client.js).
 
 5. **Algolia**
-   - Create an index named `products`. The search route hardcodes this
-     name at `algoliaSearch.jsx:48`.
+   - Create an index named `products`. The name is exported once as
+     `INDEX_NAME` in
+     [src/features/searchWithAlgolia/searchClient.js](src/features/searchWithAlgolia/searchClient.js).
 
 ## 🚀 Development
 
@@ -232,7 +233,35 @@ The cart state is managed globally using Zustand, allowing any component to acce
 
 ### Product Search (Algolia)
 
-Advanced search capabilities are powered by Algolia. Users can search products in real-time with faceted filtering. Implementation is in [src/features/searchWithAlgolia/](src/features/searchWithAlgolia/).
+Search runs on Algolia through React InstantSearch. Implementation is in
+[src/features/searchWithAlgolia/](src/features/searchWithAlgolia/).
+
+| File | Role |
+| --- | --- |
+| `algoliaSearch.jsx` | The page: results, facet lists, pagination. |
+| `searchClient.js` | `INDEX_NAME` plus a lazy, validated search client. |
+| `searchRouting.js` | Pure URL ⇄ route-state mapping. No React. |
+| `searchRouter.js` | `useSearchRouter()`, the React Router binding. |
+
+**Search state lives in the URL.** Query, page and refinements are routed as
+`/shop/search?q=laptop&page=2&category=beauty`, so results are shareable and the
+back button works. Routing writes go through React Router's `navigate`, which
+keeps it the single owner of history.
+
+**Two rules keep the page responsive.** Both were violated before and caused it
+to freeze:
+
+1. **Never mount an InstantSearch widget inside a `status` branch.** Adding a
+   widget calls `addWidgets`, which schedules *another* search. Mounting
+   `<Hits>` only on the success path meant every resolved search triggered a new
+   one, at roughly eight requests a second, indefinitely. `algoliaSearch.jsx`
+   registers every widget unconditionally and lets `status` affect only what is
+   painted.
+2. **Never put `query` on `<Configure>`.** It is reserved; InstantSearch owns
+   the query and routes it. Use `useSearchBox().refine()` or routing.
+
+`tests/algoliaSearch.test.jsx` asserts one request per query, and that a pending
+search never unmounts the results.
 
 ### Data Fetching (React Query & Firebase)
 
